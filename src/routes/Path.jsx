@@ -5,14 +5,14 @@ import SignIn from "../pages/SignIn";
 import Dashboard from "../pages/Dashboard";
 import { ClipLoader } from "react-spinners";
 import Home from "../pages/Home";
-import CreateJob from "../pages/CreateJob";
-import JobLists from "../pages/JobLists";
-import CompanyLists from "../pages/CompanyLists";
-import CreateCompany from "../pages/CreateCompany";
-import AllUser from "../pages/AllUser";
-import Applicants from "../pages/Applicants";
-import Profile from "../pages/Profile";
-import Settings from "../pages/Settings";
+import CreateJob from "../pages/Jobs/CreateJob";
+import JobLists from "../pages/Jobs/JobLists";
+import CompanyLists from "../pages/Company/CompanyLists";
+import CreateCompany from "../pages/Company/CreateCompany";
+import AllUser from "../pages/User/AllUser";
+import Applicants from "../pages/User/Applicants";
+import Profile from "../pages/Admin/Profile";
+import Settings from "../pages/Admin/Settings";
 
 const Path = () => {
   const [isLoading, setIsLoading] = useState(true);

@@ -118,13 +118,13 @@ export default function SideBar() {
             } duration-10 ms-8 text-sm cursor-pointer`}
           >
             <NavLink
-              to={"create-company"}
+              to={"all-user"}
               className={`px-10 flex items-center gap-3 py-3`}
             >
               <h5>All User</h5>
             </NavLink>
             <NavLink
-              to={"company-lists"}
+              to={"applicants"}
               className={`px-10 flex items-center gap-3 py-3`}
             >
               <h5>Applicants</h5>
@@ -155,13 +155,13 @@ export default function SideBar() {
             } duration-10 ms-8 text-sm cursor-pointer`}
           >
             <NavLink
-              to={"create-company"}
+              to={"profile"}
               className={`px-10 flex items-center gap-3 py-3`}
             >
               <h5>Profile</h5>
             </NavLink>
             <NavLink
-              to={"company-lists"}
+              to={"settings"}
               className={`px-10 flex items-center gap-3 py-3`}
             >
               <h5>Settings</h5>

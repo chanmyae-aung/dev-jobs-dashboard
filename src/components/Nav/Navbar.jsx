@@ -1,45 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { PiSunBold, PiBell } from "react-icons/pi";
 import { RiAppsLine } from "react-icons/ri";
 import { MdOutlineSettings } from "react-icons/md";
 import { stateContextCustom } from "../../context/StateContext";
-import uk from "../../assets/icons8-great-britain-96.png";
 import Theme from "./Theme";
-import Languages from "./Languages";
-import ShowApps from "./ShowApps";
 import NotiSidebar from "./NotiSidebar";
 import SettingSidebar from "./SettingSidebar";
 import Profile from "./Profile";
 import Customize from "./Customize";
 
 const Navbar = () => {
-  const {
-    show,
-    setShow,
-    toggleShow,
-    showLanguage,
-    toggleLanguage,
-    image,
-    showApps,
-    toggleApps,
-    showNoti,
-    toggleNoti,
-    showSetting,
-    toggleSetting,
-    showProfile,
-    toggleProfile,
-  } = stateContextCustom();
-  console.log(image)
+  const [show, setShow] = useState(false);
+  const [showNoti, setShowNoti] = useState();
+  const [showProfile, setShowProfile] = useState(false);
+  const toggleShow = () => {
+    setShow(!show);
+  };
+  const toggleProfile = () => {
+    setShowProfile(!showProfile);
+  };
+  const toggleNoti = () => {
+    setShowNoti(!showNoti);
+  };
   const closeSideBars = () => {
     showNoti && toggleNoti();
-    showSetting && toggleSetting();
     showProfile && toggleProfile();
   };
 
   return (
     <>
-      <main className="flex relative w-full items-center justify-center md:justify-between md:p-10 p-5 bg-[#F8FAFB] bg-transparent">
+      <main className="flex bg-white shadow relative w-full items-center justify-center md:justify-between md:px-10 p-5 bg-transparent">
         <div className="hidden relative w-[287.5px] md:flex items-center shadow rounded-md">
           <input
             type="text"
@@ -50,7 +41,7 @@ const Navbar = () => {
             <BiSearch className="" />
           </button>
         </div>
-        <div className="flex">
+        <div className="flex items-center">
           {/* Select Theme */}
           <div className="relative mx-5">
             <button onClick={toggleShow} className="nav-btn">
@@ -58,29 +49,18 @@ const Navbar = () => {
             </button>
             <div
               onClick={() => setShow(false)}
-              className={`${!show ? "scale-y-0" : "scale-y-1"} transform transition origin-top duration-200 absolute right-0 z-10`}
-            >
-              <Theme />
-            </div>
-          </div>
-          {/* Select Languages */}
-          <div className="relative px-5 border-l">
-            <button onClick={toggleLanguage} className="nav-btn">
-              <img src={image ? image : uk} alt="" className="w-[30px]" />
-            </button>
-            <div
               className={`${
-                !showLanguage ? "scale-y-0" : "scale-y-1"
+                !show ? "scale-y-0" : "scale-y-1"
               } transform transition origin-top duration-200 absolute right-0 z-10`}
             >
-              <Languages />
+              <Theme />
             </div>
           </div>
           {/* closed sidebar  */}
           <div
             onClick={closeSideBars}
             className={
-              showNoti || showSetting || showProfile 
+              showNoti || showProfile
                 ? "w-full h-screen ml-[110px] fixed top-0 right-0 bg-transparent z-10"
                 : null
             }
@@ -100,31 +80,7 @@ const Navbar = () => {
                 !showNoti ? "translate-x-[400px]" : "translate-x-0"
               } shadow-lg transition-all ease-linear duration-200 w-[400px] fixed right-0 top-0  h-screen bg-white z-10 overflow-y-scroll `}
             >
-              <NotiSidebar />
-            </div>
-            {/* Show Apps */}
-            <div className="relative">
-              <button onClick={toggleApps} className="nav-btn">
-                <RiAppsLine />
-              </button>
-              <div
-                className={`${!showApps ? "scale-y-0" : "scale-y-1"} transform transition origin-top duration-200 absolute right-0 z-10`}
-              >
-                <ShowApps />
-              </div>
-            </div>
-            {/* Settings */}
-            <div className="relative ">
-              <button onClick={toggleSetting} className="nav-btn">
-                <MdOutlineSettings className=" animate-spin" />
-              </button>
-            </div>
-            <div
-              className={`${
-                !showSetting ? "translate-x-[400px]" : "translate-x-0"
-              } w-[400px] fixed right-0 top-0 transition-all ease-linear duration-200 h-screen bg-white z-10 overflow-y-scroll `}
-            >
-              <SettingSidebar />
+              <NotiSidebar toggleNoti={toggleNoti}/>
             </div>
           </div>
           {/* Profile */}
@@ -148,9 +104,6 @@ const Navbar = () => {
               <Profile />
             </div>
           </div>
-        </div>
-        <div onClick={toggleSetting} className="fixed right-10 bottom-10 z-1 ">
-          <Customize />
         </div>
       </main>
     </>

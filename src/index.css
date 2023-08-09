@@ -5,6 +5,11 @@
 
 body{
     font-family: 'Inter', sans-serif;
+    @apply text-slate-600
+}
+h2{
+    font-weight: 700;
+    font-size: xx-large;
 }
 h4{
     font-weight: 600;
@@ -15,3 +20,19 @@ h5{
  #sidebar a.active {
     color: blue ;
  }
+ 
+.nav-btn{
+    @apply w-[40px] h-[40px] text-xl text-[#9ea9b4] bg-white rounded-full shadow flex items-center justify-center
+}
+.nav-dropdown{
+    @apply  flex items-center px-3 py-2 gap-3 cursor-pointer select-none
+}
+.nav-dropdown:hover {
+    @apply bg-[#F6F7F8]
+}
+.selected{
+    @apply text-white bg-[#00BAC7] !important
+}
+.navigation {
+    color: #00BAC7;
+}
