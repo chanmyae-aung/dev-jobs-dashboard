@@ -10,7 +10,7 @@ export default function Home() {
         <SideBar />
       </div>
       <div className="w-[82%] h-screen overflow-y-scroll bg-slate-100">
-        <div className="sticky top-0">
+        <div className="sticky z-50 top-0">
         <Navbar />
         </div>
         <Outlet />

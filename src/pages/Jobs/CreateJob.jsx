@@ -7,11 +7,17 @@ import Button from "../../components/Button";
 export default function CreateJob() {
   const [select, setSelect] = useState(false);
   const [display, setDisplay] = useState("Full Time");
+  const [selectCompany, setSelectCompany] = useState(false);
+  const [displayCompany, setDisplayCompany] = useState("Microsoft");
   const toggleSelect = () => {
     setSelect(!select);
   };
-  const [editorHtml, setEditorHtml] = useState("");
 
+  const toggleSelectCompany = () => {
+    setSelectCompany(!selectCompany)
+  }
+
+  const [editorHtml, setEditorHtml] = useState("");
   const handleEditorChange = (html) => {
     setEditorHtml(html);
   };
@@ -43,13 +49,39 @@ export default function CreateJob() {
             </div>
             <div className=" w-full">
               <label className="block mb-2" htmlFor="">
-                Company ID
+                Company Name
               </label>
-              <input
-                type="text"
-                className="w-full outline-none py-3 px-5 rounded"
-                placeholder="e.g. 3"
-              />
+              <div
+                onClick={toggleSelectCompany}
+                className="w-full outline-none py-3 bg-white relative rounded cursor-pointer"
+              >
+                <div className="px-5 flex items-center justify-between">
+                  <p className="">{displayCompany}</p>
+                  <BiChevronDown
+                    className={`text-xl ${
+                      selectCompany && "rotate-180"
+                    } transition-all duration-150`}
+                  />
+                </div>
+                <div
+                  className={`${
+                    selectCompany ? "scale-y-1" : "scale-y-0"
+                  } transition-all duration-150 origin-top z-40 absolute w-full top-14`}
+                >
+                  <div
+                    onClick={(e) => setDisplayCompany(e.target.textContent)}
+                    className="w-full outline-none py-3 bg-white px-5 rounded-t border-b cursor-pointer"
+                  >
+                    Microsoft
+                  </div>
+                  <div
+                    onClick={(e) => setDisplayCompany(e.target.textContent)}
+                    className="w-full outline-none py-3 bg-white px-5 rounded-b cursor-pointer"
+                  >
+                    Google
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
           <section className="flex items-center gap-5 px-5 py-2.5">
@@ -72,7 +104,7 @@ export default function CreateJob() {
                 <div
                   className={`${
                     select ? "scale-y-1" : "scale-y-0"
-                  } transition-all duration-150 origin-top absolute w-full top-14`}
+                  } transition-all duration-150 origin-top z-40 absolute w-full top-14`}
                 >
                   <div
                     onClick={(e) => setDisplay(e.target.textContent)}
@@ -101,8 +133,16 @@ export default function CreateJob() {
             </div>
           </section>
           <section className="p-5">
-            <h4>About This Job</h4>
-            <ReactQuill className="w-full mt-5 bg-white" value={editorHtml} onChange={handleEditorChange} />
+            <h4>Job Description</h4>
+            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorHtml} onChange={handleEditorChange} />
+          </section>
+          <section className="p-5">
+            <h4>Requirements</h4>
+            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorHtml} onChange={handleEditorChange} />
+          </section>
+          <section className="p-5">
+            <h4>Responsibilities</h4>
+            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorHtml} onChange={handleEditorChange} />
           </section>
           <div className="p-5">
           <Button text={"Submit"}/>
