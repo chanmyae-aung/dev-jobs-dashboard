@@ -13,8 +13,14 @@ export default function SideBar() {
   const [active, setActive] = useState(false);
 
   return (
-    <main id="sidebar" className="h-screen overflow-y-scroll">
-      <h1 className="my-10 font-bold text-xl text-center">devjobs</h1>
+    <main id="sidebar" className="h-screen">
+      <div className="flex items-center gap-2 justify-center">
+        <img className="w-10"
+          src="https://img.icons8.com/?size=512&id=sFFBQN8kzSOS&format=png"
+          alt=""
+        />
+        <h1 className="my-10 font-bold text-xl text-blue-500 text-center">devjobs</h1>
+      </div>
       <section id="dashboard">
         <NavLink to={"/"} className="px-8 flex items-center gap-3 py-3">
           <MdDashboard className="text-xl" />
@@ -133,42 +139,11 @@ export default function SideBar() {
         </div>
       </section>
       <section id="admin">
-        <div
-          className={`${active && "dropdown"}`}
-          onClick={() => setShowProfile(!showProfile)}
-        >
-          <div
-            className={` flex items-center justify-between px-8 rounded-e-full cursor-pointer`}
-          >
-            <div className=" flex items-center gap-3 py-3">
-              <MdAdminPanelSettings className="text-xl" />
-              <h4>Admin</h4>
-            </div>
-            <FaAngleDown
-              className={`${showProfile && "-rotate-180"} duration-300`}
-            />
-          </div>
-          <ul
-            onClick={(e) => e.stopPropagation()}
-            className={`${
-              showProfile ? "min-h-max opacity-100" : "h-0 opacity-0 hidden"
-            } duration-10 ms-8 text-sm cursor-pointer`}
-          >
-            <NavLink
-              to={"profile"}
-              className={`px-8 flex items-center gap-3 py-3`}
-            >
-              <h5>Profile</h5>
-            </NavLink>
-            <NavLink
-              to={"settings"}
-              className={`px-8 flex items-center gap-3 py-3`}
-            >
-              <h5>Settings</h5>
-            </NavLink>
-          </ul>
-        </div>
-      </section>    
+        <NavLink to={"/profile"} className="px-8 flex items-center gap-3 py-3">
+          <MdAdminPanelSettings className="text-xl" />
+          <h4>Admin</h4>
+        </NavLink>
+      </section>
     </main>
   );
 }

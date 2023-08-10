@@ -23,9 +23,9 @@ export default function CreateJob() {
   };
   return (
     <main>
-      <section className="p-5 px-10">
-        <form action="" className="border">
-          <h4 className="p-5 border-b">Post a New Job</h4>
+      <section className="p-5">
+        <form action="" className="border bg-white rounded">
+          <h4 className="p-5 border-b text-blue-600">Create Job</h4>
           <div className=" px-5 py-2.5 w-full">
             <label className="block mb-2" htmlFor="">
               Job Position

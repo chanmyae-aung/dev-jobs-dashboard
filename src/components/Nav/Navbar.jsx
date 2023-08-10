@@ -30,14 +30,14 @@ const Navbar = () => {
 
   return (
     <>
-      <main className="flex bg-white shadow relative w-full items-center justify-center md:justify-between md:px-10 p-5 bg-transparent">
-        <div className="hidden relative w-[287.5px] md:flex items-center shadow rounded-md">
+      <main className="flex bg-white shadow relative w-full items-center justify-center md:justify-between md:px-10 p-3 bg-transparent">
+        <div className=" flex">
           <input
             type="text"
-            className="bg-[#F1F5F7] text-sm w-full outline-none rounded-md py-2 px-4"
+            className="w-full border-y border-l text-sm py-2 outline-none px-5 rounded-l"
             placeholder="Search..."
           />
-          <button className="bg-[#00C5D9] p-2 text-white rounded-lg absolute right-1">
+          <button className="bg-blue-500 px-3 p-2 text-white rounded-r">
             <BiSearch className="" />
           </button>
         </div>
@@ -80,7 +80,7 @@ const Navbar = () => {
                 !showNoti ? "translate-x-[400px]" : "translate-x-0"
               } shadow-lg transition-all ease-linear duration-200 w-[400px] fixed right-0 top-0  h-screen bg-white z-10 overflow-y-scroll `}
             >
-              <NotiSidebar toggleNoti={toggleNoti}/>
+              <NotiSidebar toggleNoti={toggleNoti} />
             </div>
           </div>
           {/* Profile */}

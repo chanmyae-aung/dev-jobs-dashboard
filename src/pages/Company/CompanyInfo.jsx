@@ -1,12 +1,14 @@
 import React from "react";
 import { MdInfo, MdLocationOn } from "react-icons/md";
 import { RiEarthLine } from "react-icons/ri";
-import ManageTable from "../../components/ManageTable";
+import CompanyTable from "../../components/CompanyTable";
 
 export default function CompanyInfo() {
   return (
     <main>
-      <div className="flex m-5 bg-white">
+      <div className="m-5 bg-white border rounded">
+      <h4 className="p-5 border-b ">Company Info</h4>
+      <div className="flex ">
         <section className="w-[70%] h-full p-5">
           <h4 className="pb-5">About Us</h4>
           <p>
@@ -27,7 +29,7 @@ export default function CompanyInfo() {
             quasi.{" "}
           </p>
         </section>
-        <section className="w-[30%] h-full p-5 bg-pink-50">
+        <section className="w-[30%] h-full p-5 bg-blue-50">
           <div className="flex flex-col text-center gap-5 mb-5 items-center">
             <img
               className="w-20"
@@ -64,8 +66,9 @@ export default function CompanyInfo() {
           </div>
         </section>
       </div>
+      </div>
       <section>
-        <ManageTable/>
+        <CompanyTable/>
       </section>
     </main>
   );

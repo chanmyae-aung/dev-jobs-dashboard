@@ -5,7 +5,7 @@ import Navbar from "../components/Nav/Navbar";
 
 export default function Home() {
   return (
-    <div className="w-screen flex">
+    <div className="flex h-screen overflow-hidden">
       <div className="w-[18%]">
         <SideBar />
       </div>

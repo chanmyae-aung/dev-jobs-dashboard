@@ -45,7 +45,6 @@ const Path = () => {
           <Route path="all-user" element={<AllUser/>}/>
           <Route path="applicants" element={<Applicants/>}/>
           <Route path="profile" element={<Profile/>}/>
-          <Route path="settings" element={<Settings/>}/>
         </Route>
       </Routes>
     </div>

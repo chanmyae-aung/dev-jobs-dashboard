@@ -37,13 +37,13 @@ h2{
     font-size: xx-large;
 }
 h4{
-    font-weight: 600;
+    font-weight: 700;
 }
 h5{
     font-weight: 500;
 }
  #sidebar a.active {
-    color: blue ;
+    @apply text-blue-600 bg-[#E7F5FF]
  }
  
 .nav-btn{
