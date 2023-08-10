@@ -17,8 +17,8 @@ export default function CreateCompany() {
   };
   return (
     <main>
-      <section className="p-5 px-10">
-        <form action="" className="border">
+      <section className="p-5 ">
+        <form action="" className="border bg-white rounded">
           <h4 className="p-5 border-b">Create a Company</h4>
           <section className="flex items-center gap-5 px-5 py-2.5 mt-3">
             <div className=" w-full">
@@ -27,7 +27,7 @@ export default function CreateCompany() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. Google"
               />
             </div>
@@ -49,7 +49,7 @@ export default function CreateCompany() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 0123476"
               />
             </div>
@@ -59,7 +59,7 @@ export default function CreateCompany() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. Los Angeles Califonia PO"
               />
             </div>
@@ -71,7 +71,7 @@ export default function CreateCompany() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. example@gmail.com"
               />
             </div>
@@ -81,7 +81,7 @@ export default function CreateCompany() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 5 - 8 lakhs"
               />
             </div>

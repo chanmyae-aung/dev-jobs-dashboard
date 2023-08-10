@@ -32,7 +32,7 @@ export default function CreateJob() {
             </label>
             <input
               type="text"
-              className="w-full outline-none py-3 px-5 rounded"
+              className="w-full border outline-none py-3 px-5 rounded"
               placeholder="e.g. Web Developer"
             />
           </div>
@@ -43,7 +43,7 @@ export default function CreateJob() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 2"
               />
             </div>
@@ -53,7 +53,7 @@ export default function CreateJob() {
               </label>
               <div
                 onClick={toggleSelectCompany}
-                className="w-full outline-none py-3 bg-white relative rounded cursor-pointer"
+                className="w-full border outline-none py-3 bg-white relative rounded cursor-pointer"
               >
                 <div className="px-5 flex items-center justify-between">
                   <p className="">{displayCompany}</p>
@@ -66,7 +66,7 @@ export default function CreateJob() {
                 <div
                   className={`${
                     selectCompany ? "scale-y-1" : "scale-y-0"
-                  } transition-all duration-150 origin-top z-40 absolute w-full top-14`}
+                  } transition-all duration-150 origin-top z-40 absolute border rounded w-full top-14`}
                 >
                   <div
                     onClick={(e) => setDisplayCompany(e.target.textContent)}
@@ -91,7 +91,7 @@ export default function CreateJob() {
               </label>
               <div
                 onClick={toggleSelect}
-                className="w-full outline-none py-3 bg-white relative rounded cursor-pointer"
+                className="w-full border outline-none py-3 bg-white relative rounded cursor-pointer"
               >
                 <div className="px-5 flex items-center justify-between">
                   <p className="">{display}</p>
@@ -104,7 +104,7 @@ export default function CreateJob() {
                 <div
                   className={`${
                     select ? "scale-y-1" : "scale-y-0"
-                  } transition-all duration-150 origin-top z-40 absolute w-full top-14`}
+                  } transition-all duration-150 origin-top z-40 border rounded absolute w-full top-14`}
                 >
                   <div
                     onClick={(e) => setDisplay(e.target.textContent)}
@@ -127,7 +127,7 @@ export default function CreateJob() {
               </label>
               <input
                 type="text"
-                className="w-full outline-none py-3 px-5 rounded"
+                className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 5 - 8 lakhs"
               />
             </div>

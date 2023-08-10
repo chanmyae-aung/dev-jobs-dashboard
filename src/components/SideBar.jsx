@@ -16,7 +16,7 @@ export default function SideBar() {
     <main id="sidebar" className="h-screen overflow-y-scroll">
       <h1 className="my-10 font-bold text-xl text-center">devjobs</h1>
       <section id="dashboard">
-        <NavLink to={"/"} className="px-10 flex items-center gap-3 py-3">
+        <NavLink to={"/"} className="px-8 flex items-center gap-3 py-3">
           <MdDashboard className="text-xl" />
           <h4>Dashboard</h4>
         </NavLink>
@@ -27,7 +27,7 @@ export default function SideBar() {
           onClick={() => setShowJobs(!showJobs)}
         >
           <div
-            className={` flex items-center justify-between px-10 rounded-e-full cursor-pointer`}
+            className={` flex items-center justify-between px-8 rounded-e-full cursor-pointer`}
           >
             <div className=" flex items-center gap-3 py-3">
               <MdWork className="text-xl" />
@@ -45,15 +45,15 @@ export default function SideBar() {
           >
             <NavLink
               to={"create-job"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
               <h5>Create Job</h5>
             </NavLink>
             <NavLink
-              to={"job-lists"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              to={"manage-jobs"}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
-              <h5>Job Lists</h5>
+              <h5>Manage Jobs</h5>
             </NavLink>
           </ul>
         </div>
@@ -64,7 +64,7 @@ export default function SideBar() {
           onClick={() => setShowCompany(!showCompany)}
         >
           <div
-            className={` flex items-center justify-between px-10 rounded-e-full cursor-pointer`}
+            className={` flex items-center justify-between px-8 rounded-e-full cursor-pointer`}
           >
             <div className=" flex items-center gap-3 py-3">
               <SiOnlyoffice className="text-xl" />
@@ -82,15 +82,15 @@ export default function SideBar() {
           >
             <NavLink
               to={"create-company"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
               <h5>Create Company</h5>
             </NavLink>
             <NavLink
-              to={"company-lists"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              to={"manage-companies"}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
-              <h5>Company Lists</h5>
+              <h5>Manage Company</h5>
             </NavLink>
           </ul>
         </div>
@@ -101,7 +101,7 @@ export default function SideBar() {
           onClick={() => setShowUser(!showUser)}
         >
           <div
-            className={` flex items-center justify-between px-10 rounded-e-full cursor-pointer`}
+            className={` flex items-center justify-between px-8 rounded-e-full cursor-pointer`}
           >
             <div className=" flex items-center gap-3 py-3">
               <FaUser className="text-xl" />
@@ -119,13 +119,13 @@ export default function SideBar() {
           >
             <NavLink
               to={"all-user"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
               <h5>All User</h5>
             </NavLink>
             <NavLink
               to={"applicants"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
               <h5>Applicants</h5>
             </NavLink>
@@ -138,7 +138,7 @@ export default function SideBar() {
           onClick={() => setShowProfile(!showProfile)}
         >
           <div
-            className={` flex items-center justify-between px-10 rounded-e-full cursor-pointer`}
+            className={` flex items-center justify-between px-8 rounded-e-full cursor-pointer`}
           >
             <div className=" flex items-center gap-3 py-3">
               <MdAdminPanelSettings className="text-xl" />
@@ -156,13 +156,13 @@ export default function SideBar() {
           >
             <NavLink
               to={"profile"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
               <h5>Profile</h5>
             </NavLink>
             <NavLink
               to={"settings"}
-              className={`px-10 flex items-center gap-3 py-3`}
+              className={`px-8 flex items-center gap-3 py-3`}
             >
               <h5>Settings</h5>
             </NavLink>

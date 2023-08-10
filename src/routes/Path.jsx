@@ -6,13 +6,14 @@ import Dashboard from "../pages/Dashboard";
 import { ClipLoader } from "react-spinners";
 import Home from "../pages/Home";
 import CreateJob from "../pages/Jobs/CreateJob";
-import JobLists from "../pages/Jobs/JobLists";
-import CompanyLists from "../pages/Company/CompanyLists";
 import CreateCompany from "../pages/Company/CreateCompany";
 import AllUser from "../pages/User/AllUser";
 import Applicants from "../pages/User/Applicants";
 import Profile from "../pages/Admin/Profile";
 import Settings from "../pages/Admin/Settings";
+import ManageJobs from "../pages/Jobs/ManageJobs";
+import ManageCompanies from "../pages/Company/ManageCompanies";
+import CompanyInfo from "../pages/Company/CompanyInfo";
 
 const Path = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,9 +38,10 @@ const Path = () => {
         <Route path="/" element={<Home />}>
           <Route index element={<Dashboard/>}/>
           <Route path="create-job" element={<CreateJob/>}/>
-          <Route path="job-lists" element={<JobLists/>}/>
+          <Route path="manage-jobs" element={<ManageJobs/>}/>
           <Route path="create-company" element={<CreateCompany/>}/>
-          <Route path="company-lists" element={<CompanyLists/>}/>
+          <Route path="manage-companies" element={<ManageCompanies/>}/>
+          <Route path="company-info" element={<CompanyInfo/>}/>
           <Route path="all-user" element={<AllUser/>}/>
           <Route path="applicants" element={<Applicants/>}/>
           <Route path="profile" element={<Profile/>}/>
