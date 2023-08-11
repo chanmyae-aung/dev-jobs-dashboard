@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Button from "../../components/Button";
 import { LiaEye, LiaEyeSlash } from "react-icons/lia";
-import { MdFacebook, MdLink, MdLocationOn, MdModeEditOutline, MdPhone } from "react-icons/md";
+import {
+  MdFacebook,
+  MdLink,
+  MdLocationOn,
+  MdModeEditOutline,
+  MdPhone,
+} from "react-icons/md";
 
 export default function Profile() {
   const [currentPass, setCurrentPass] = useState("");
@@ -38,37 +44,29 @@ export default function Profile() {
               </div>
             </div>
             <div className="flex flex-col px-5 gap-3">
-              <div className="flex items-start gap-2">
-                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
-                  <MdPhone />
-                </div>
+              <div className="flex items-start gap-4">
+                <MdPhone className="text-xl text-blue-600 mt-1" />
                 <div>
                   <p className="text-sm font-semibold">Phone</p>
                   <p>9876543891</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
-                  <MdLocationOn />
-                </div>
+              <div className="flex items-start gap-4">
+                <MdLocationOn className="text-xl text-blue-600 mt-1" />
                 <div>
                   <p className="text-sm font-semibold">Address</p>
                   <p>Los Angeles Califonia PO</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
-                  <MdFacebook />
-                </div>
+              <div className="flex items-start gap-4">
+                <MdFacebook className="text-xl text-blue-600 mt-1" />
                 <div>
                   <p className="text-sm font-semibold">Social</p>
                   <p>https://facebook.com/adm</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
-                  <MdLink />
-                </div>
+              <div className="flex items-start gap-4">
+                <MdLink className="text-xl text-blue-600 mt-1" />
                 <div>
                   <p className="text-sm font-semibold">Website</p>
                   <p>www.devjobs.com</p>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import JobTable from "../../components/JobTable";
+import { MdFacebook, MdLink, MdLocationOn, MdPhone } from "react-icons/md";
 
 export default function UserDetail() {
   return (
@@ -23,20 +24,34 @@ export default function UserDetail() {
               </div>
             </div>
             <div className="flex flex-col px-5 gap-3">
-              <p>
-                <span className="font-semibold">Phone:</span> 9876543891
-              </p>
-              <p>
-                <span className="font-semibold">Address:</span> No.5, Wietac
-                Ulakfeg
-              </p>
-              <p>
-                <span className="font-semibold">Social:</span>{" "}
-                https://facebook.com/asefaed
-              </p>
-              <p>
-                <span className="font-semibold">Website:</span> www.wevsieft.com
-              </p>
+              <div className="flex items-start gap-4">
+                <MdPhone className="text-xl text-blue-600 mt-1" />
+                <div>
+                  <p className="text-sm font-semibold">Phone</p>
+                  <p>9876543891</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <MdLocationOn className="text-xl text-blue-600 mt-1" />
+                <div>
+                  <p className="text-sm font-semibold">Address</p>
+                  <p>Los Angeles Califonia PO</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <MdFacebook className="text-xl text-blue-600 mt-1" />
+                <div>
+                  <p className="text-sm font-semibold">Social</p>
+                  <p>https://facebook.com/adm</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <MdLink className="text-xl text-blue-600 mt-1" />
+                <div>
+                  <p className="text-sm font-semibold">Website</p>
+                  <p>www.devjobs.com</p>
+                </div>
+              </div>
             </div>
           </section>
           <section className="w-[70%]">
