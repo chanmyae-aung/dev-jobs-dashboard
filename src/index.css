@@ -45,9 +45,14 @@ h5{
  #sidebar a.active {
     @apply text-blue-600 bg-[#E7F5FF]
  }
- 
+ .dark{
+    @apply bg-gray-600 text-slate-100 border-0
+ }
+ .body-dark {
+    @apply bg-gray-700
+ }
 .nav-btn{
-    @apply w-[40px] h-[40px] text-xl text-[#9ea9b4] bg-white rounded-full shadow flex items-center justify-center
+    @apply w-[40px] h-[40px] text-xl rounded-full shadow flex items-center justify-center
 }
 .nav-dropdown{
     @apply  flex items-center px-3 py-2 gap-3 cursor-pointer select-none

@@ -8,10 +8,12 @@ import {
   PointElement,
   Tooltip,
 } from "chart.js";
+import Cookies from "js-cookie";
 
 ChartJs.register(BarElement, CategoryScale, LinearScale, PointElement, Tooltip);
 
 const StackedBar = () => {
+  const dark = Cookies.get("dark")
   const data = {
     labels: [
       "Jan",
@@ -30,7 +32,7 @@ const StackedBar = () => {
     datasets: [
       {
         barThickness: 11,
-        backgroundColor: "#00C5D9",
+        backgroundColor: "#3B82F6",
         hoverBackgroundColor: "#0faab9",
         label: "$",
         data: [
@@ -104,8 +106,8 @@ const StackedBar = () => {
   };
 
   return (
-    <div className="w-[60%]">
-      <div className="bg-white flex flex-col gap-10 p-5 rounded-xl shadow-lg">
+    <div className="w-full">
+      <div className={`bg-white flex flex-col gap-10 p-5 rounded border shadow ${dark && "dark"}`}>
         <div className="flex justify-between items-center">
           <div className="">
             <h5 className="uppercase text-xs font-bold">Sales</h5>
@@ -113,11 +115,11 @@ const StackedBar = () => {
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-3">
               <div className="bg-[#00C5D9] h-[10px] w-[10px] rounded-full"></div>
-              <h5 className="uppercase text-[10px] text-gray-400">Projections</h5>
+              <h5 className={`uppercase text-[10px] ${dark ? "" : "text-gray-400"}`}>Projections</h5>
             </div>
             <div className="flex items-center gap-3">
               <div className="bg-gray-200 h-[10px] w-[10px] rounded-full"></div>
-              <h5 className="uppercase text-[10px] text-gray-400">Actual</h5>
+              <h5 className={`uppercase text-[10px] ${dark ? "" : "text-gray-400"}`}>Actual</h5>
             </div>
           </div>
         </div>

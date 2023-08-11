@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { PiSunBold, PiBell } from "react-icons/pi";
-import { RiAppsLine } from "react-icons/ri";
-import { MdOutlineSettings } from "react-icons/md";
-import { stateContextCustom } from "../../context/StateContext";
 import Theme from "./Theme";
 import NotiSidebar from "./NotiSidebar";
-import SettingSidebar from "./SettingSidebar";
 import Profile from "./Profile";
-import Customize from "./Customize";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
+  const dark = Cookies.get("dark")
   const [show, setShow] = useState(false);
   const [showNoti, setShowNoti] = useState();
   const [showProfile, setShowProfile] = useState(false);
@@ -30,11 +27,11 @@ const Navbar = () => {
 
   return (
     <>
-      <main className="flex bg-white shadow relative w-full items-center justify-center md:justify-between md:px-10 p-3 bg-transparent">
+      <main className={`${dark && "dark"} flex bg-white shadow relative w-full items-center justify-center md:justify-between md:px-5 p-3 bg-transparent`}>
         <div className=" flex">
           <input
             type="text"
-            className="w-full border-y border-l text-sm py-2 outline-none px-5 rounded-l"
+            className={`${dark && "body-dark border-gray-500"} w-full border-y border-l text-sm py-2 outline-none px-5 rounded-l`}
             placeholder="Search..."
           />
           <button className="bg-blue-500 px-3 p-2 text-white rounded-r">
@@ -44,7 +41,7 @@ const Navbar = () => {
         <div className="flex items-center">
           {/* Select Theme */}
           <div className="relative mx-5">
-            <button onClick={toggleShow} className="nav-btn">
+            <button onClick={toggleShow} className={`${dark ? "bg-gray-500 text-slate-100" : "bg-white text-slate-600"} nav-btn `}>
               <PiSunBold className="" />
             </button>
             <div
@@ -68,7 +65,7 @@ const Navbar = () => {
           <div className="flex gap-5 border-x px-5">
             {/* Notification */}
             <div className="relative">
-              <button onClick={toggleNoti} className="nav-btn">
+              <button onClick={toggleNoti} className={`${dark ? "bg-gray-500 text-slate-100" : "bg-white text-slate-600"} nav-btn `}>
                 <PiBell />
                 <span className="text-xs bg-red-500 rounded-full text-white px-1.5 absolute -top-2 -right-3 z-10">
                   20+

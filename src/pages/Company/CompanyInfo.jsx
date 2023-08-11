@@ -1,7 +1,7 @@
 import React from "react";
 import { MdInfo, MdLocationOn } from "react-icons/md";
 import { RiEarthLine } from "react-icons/ri";
-import CompanyTable from "../../components/CompanyTable";
+import JobTable from "../../components/JobTable";
 
 export default function CompanyInfo() {
   return (
@@ -67,8 +67,8 @@ export default function CompanyInfo() {
         </section>
       </div>
       </div>
-      <section>
-        <CompanyTable/>
+      <section className="m-5 border rounded">
+        <JobTable title={"Posted Jobs"}/>
       </section>
     </main>
   );

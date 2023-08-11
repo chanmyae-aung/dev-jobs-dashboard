@@ -1,9 +1,12 @@
 import { Table } from "@mantine/core";
+import Cookies from "js-cookie";
 import React from "react";
-import { MdOutlineDeleteOutline, MdOutlineEdit } from "react-icons/md";
+import { MdOutlineDeleteOutline, MdOutlineEdit} from "react-icons/md";
+import {TbViewfinder} from 'react-icons/tb'
 import { useNavigate } from "react-router-dom";
 
-export default function ManageTable() {
+export default function ManageTable({title, name, shadow}) {
+  const dark = Cookies.get("dark")
   const nav = useNavigate();
   const elements = [
     {
@@ -48,35 +51,36 @@ export default function ManageTable() {
     },
   ];
   const rows = elements.map((element) => (
-    <tr key={element.id} className="cursor-pointer hover:bg-blue-50">
+    <tr onClick={() => nav("/user-detail")} key={element.id} className={`cursor-pointer ${dark ? "hover:bg-gray-500": "hover:bg-blue-50"}`}>
       <td>{element.id}</td>
       <td>{element.name}</td>
       <td>{element.symbol}</td>
       <td>{element.user_id}</td>
       <td>{element.applied}</td>
-      <td>{element.applicants}</td>
+      {/* <td>{element.applicants}</td> */}
       <td className="flex gap-5">
+        <TbViewfinder className="text-3xl bg-gray-50 text-blue-500 rounded-full hover:bg-blue-500 hover:text-blue-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
         <MdOutlineEdit className="text-3xl bg-green-50 text-green-500 rounded-full hover:bg-green-500 hover:text-green-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
         <MdOutlineDeleteOutline className="text-3xl bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-red-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
       </td>
     </tr>
   ));
   return (
-    <main className="m-5 bg-white rounded">
+    <main className={`${shadow} ${dark && "dark"} m-5 bg-white border rounded`}>
       <div>
-        <h4 className="p-5 border-b">Manage Jobs</h4>
+        <h4 className="p-5 border-b">{title}</h4>
       </div>
       <section className="px-5">
-        <Table verticalSpacing={"sm"}>
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>User's Name</th>
-              <th>Email</th>
-              <th>User ID</th>
-              <th>Applied Jobs</th>
-              <th>Applicants</th>
-              <th>More Action</th>
+        <Table sx={ dark && {color:"#F1F5F9"}} verticalSpacing={"sm"}>
+          <thead >
+            <tr >
+              <th style={dark && {color:"#F1F5F9"}}>No.</th>
+              <th style={dark && {color:"#F1F5F9"}}>{name ? name : "User Name"}</th>
+              <th style={dark && {color:"#F1F5F9"}}>Email</th>
+              <th style={dark && {color:"#F1F5F9"}}>User ID</th>
+              <th style={dark && {color:"#F1F5F9"}}>Applied Jobs</th>
+              {/* <th>Applicants</th> */}
+              <th style={dark && {color:"#F1F5F9"}}>More Action</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>

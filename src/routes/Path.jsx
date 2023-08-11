@@ -3,34 +3,33 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 import Dashboard from "../pages/Dashboard";
-import { ClipLoader } from "react-spinners";
 import Home from "../pages/Home";
 import CreateJob from "../pages/Jobs/CreateJob";
 import CreateCompany from "../pages/Company/CreateCompany";
 import AllUser from "../pages/User/AllUser";
 import Applicants from "../pages/User/Applicants";
 import Profile from "../pages/Admin/Profile";
-import Settings from "../pages/Admin/Settings";
 import ManageJobs from "../pages/Jobs/ManageJobs";
 import ManageCompanies from "../pages/Company/ManageCompanies";
 import CompanyInfo from "../pages/Company/CompanyInfo";
+import UserDetail from "../pages/User/UserDetail";
 
 const Path = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  // }, []);
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        <ClipLoader size={40} color='#00BAC7'/>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="w-full h-screen flex justify-center items-center">
+  //       <ClipLoader size={40} color='#00BAC7'/>
+  //     </div>
+  //   );
+  // }
   return (
     <div>
       <Routes>
@@ -43,6 +42,7 @@ const Path = () => {
           <Route path="manage-companies" element={<ManageCompanies/>}/>
           <Route path="company-info" element={<CompanyInfo/>}/>
           <Route path="all-user" element={<AllUser/>}/>
+          <Route path="user-detail" element={<UserDetail/>}/>
           <Route path="applicants" element={<Applicants/>}/>
           <Route path="profile" element={<Profile/>}/>
         </Route>

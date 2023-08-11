@@ -1,9 +1,11 @@
+import Cookies from "js-cookie";
 import React from "react";
 
 const Profile = () => {
+  const dark = Cookies.get("dark")
   return (
     <div
-      className={`shadow-lg flex flex-col mt-3 justify-center w-60 rounded-lg bg-white`}
+      className={`shadow-lg flex flex-col mt-3 justify-center w-60 rounded-lg bg-white ${dark && "dark"}`}
     >
       <div className="flex gap-2 items-center border-b p-4">
         <img
@@ -17,11 +19,11 @@ const Profile = () => {
         </div>
       </div>
       <div className="flex flex-col p-2 border-b text-sm relative">
-        <button className="nav-dropdown">Profile & account</button>
-        <button className="nav-dropdown">Settings</button>
+        <button className={`nav-dropdown ${dark && "hover:bg-gray-500"}`}>Profile & account</button>
+        <button className={`nav-dropdown ${dark && "hover:bg-gray-500"}`}>Settings</button>
       </div>
       <div className="p-2">
-        <button className="nav-dropdown w-full text-sm">Sign out</button>
+        <button className={`nav-dropdown ${dark && "hover:bg-gray-500"} w-full text-sm`}>Sign out</button>
       </div>
     </div>
   );

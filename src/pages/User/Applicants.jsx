@@ -4,7 +4,7 @@ import UserTable from '../../components/UserTable'
 export default function Applicants() {
   return (
     <div>
-      <UserTable/>
+      <UserTable name={"Applicant Name"} title={"Manage Applicants"}/>
     </div>
   )
 }

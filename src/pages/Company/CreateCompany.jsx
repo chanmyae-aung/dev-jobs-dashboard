@@ -19,7 +19,7 @@ export default function CreateCompany() {
     <main>
       <section className="p-5 ">
         <form action="" className="border bg-white rounded">
-          <h4 className="p-5 border-b bg-[#E7F5FF]">Create a Company</h4>
+          <h4 className="p-5 border-b">Create a Company</h4>
           <section className="flex items-center gap-5 px-5 py-2.5 mt-3">
             <div className=" w-full">
               <label className="block mb-2" htmlFor="">

@@ -1,6 +1,6 @@
 import { Table } from '@mantine/core';
 import React from 'react'
-import { MdOutlineDeleteOutline, MdOutlineEdit } from 'react-icons/md';
+import { MdOutlineDeleteOutline, MdOutlineEdit, MdViewInAr } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 export default function CompanyTable() {
@@ -21,7 +21,8 @@ export default function CompanyTable() {
       <td>{element.jobs}</td>
       <td>{element.applicants}</td>
       <td className="flex gap-5">
-        <MdOutlineEdit className="text-3xl bg-green-50 text-green-500 rounded-full hover:bg-green-500 hover:text-green-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
+        <MdViewInAr className="text-3xl bg-green-50 text-blue-500 rounded-full hover:bg-blue-500 hover:text-blue-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
+        <MdOutlineEdit className="text-3xl bg-blue-50 text-green-500 rounded-full hover:bg-green-500 hover:text-green-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
         <MdOutlineDeleteOutline className="text-3xl bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-red-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
       </td>
     </tr>

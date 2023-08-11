@@ -4,7 +4,7 @@ import UserTable from '../../components/UserTable'
 export default function AllUser() {
   return (
     <div>
-      <UserTable/>
+      <UserTable title={"Manage Users"}/>
     </div>
   )
 }

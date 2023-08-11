@@ -3,8 +3,10 @@ import { MdAdminPanelSettings, MdDashboard, MdWork } from "react-icons/md";
 import { FaAngleDown, FaUser } from "react-icons/fa";
 import { SiOnlyoffice } from "react-icons/si";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function SideBar() {
+  const dark = Cookies.get("dark")
   const location = useLocation();
   const [showJobs, setShowJobs] = useState(false);
   const [showCompany, setShowCompany] = useState(false);
@@ -13,14 +15,15 @@ export default function SideBar() {
   const [active, setActive] = useState(false);
 
   return (
-    <main id="sidebar" className="h-screen">
-      <div className="flex items-center gap-2 justify-center">
+    <main id="sidebar" className={`${dark && "dark"} h-screen`}>
+      <div className="flex items-center gap-2 border-b py-3 px-8">
         <img className="w-10"
           src="https://img.icons8.com/?size=512&id=sFFBQN8kzSOS&format=png"
           alt=""
         />
-        <h1 className="my-10 font-bold text-xl text-blue-500 text-center">devjobs</h1>
+        <h1 className=" font-bold text-xl text-blue-500 text-center">devjobs</h1>
       </div>
+      <div className="mt-7">
       <section id="dashboard">
         <NavLink to={"/"} className="px-8 flex items-center gap-3 py-3">
           <MdDashboard className="text-xl" />
@@ -144,6 +147,7 @@ export default function SideBar() {
           <h4>Admin</h4>
         </NavLink>
       </section>
+      </div>
     </main>
   );
 }

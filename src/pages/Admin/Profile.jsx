@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../components/Button";
 import { LiaEye, LiaEyeSlash } from "react-icons/lia";
+import { MdFacebook, MdLink, MdLocationOn, MdModeEditOutline, MdPhone } from "react-icons/md";
 
 export default function Profile() {
   const [currentPass, setCurrentPass] = useState("");
@@ -9,6 +10,7 @@ export default function Profile() {
   const [showCurrentPass, setShowCurrentPass] = useState("");
   const [showNewPass, setShowNewPass] = useState("");
   const [showConfirmPass, setShowConfirmPass] = useState("");
+  const editImage = document.querySelector(".file");
   return (
     <main>
       <div className="m-5 bg-white border rounded">
@@ -16,31 +18,62 @@ export default function Profile() {
         <div className="w-full flex">
           <section className="p-5 w-[30%] border-r flex flex-col">
             <div className="flex flex-col items-center justify-center">
-              <img
-                className="w-20"
-                src="https://img.icons8.com/?size=512&id=23476&format=png"
-                alt=""
-              />
+              <div className=" border-2 relative border-blue-500 rounded-full">
+                <img
+                  className="w-24"
+                  src="https://img.icons8.com/?size=512&id=23476&format=png"
+                  alt=""
+                />
+                <div
+                  onClick={() => editImage.click()}
+                  className={`flex justify-center cursor-pointer absolute bg-white -right-2  bottom-1 items-center text-xs gap-1 border-2 rounded-full w-7 h-7 px-1 py-0.5`}
+                >
+                  <MdModeEditOutline />
+                  <input className="hidden file" type="file" name="" id="" />
+                </div>
+              </div>
               <div className="text-center my-5">
                 <h4>Chan Myae Aung</h4>
                 <p>chanmyaeaung765@gmail.com</p>
               </div>
             </div>
             <div className="flex flex-col px-5 gap-3">
-              <p>
-                <span className="font-semibold">Phone:</span> 9876543891
-              </p>
-              <p>
-                <span className="font-semibold">Address:</span> No.5, Wietac
-                Ulakfeg
-              </p>
-              <p>
-                <span className="font-semibold">Social:</span>{" "}
-                https://facebook.com/asefaed
-              </p>
-              <p>
-                <span className="font-semibold">Website:</span> www.wevsieft.com
-              </p>
+              <div className="flex items-start gap-2">
+                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
+                  <MdPhone />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Phone</p>
+                  <p>9876543891</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
+                  <MdLocationOn />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Address</p>
+                  <p>Los Angeles Califonia PO</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
+                  <MdFacebook />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Social</p>
+                  <p>https://facebook.com/adm</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="font-semibold flex justify-center items-center bg-blue-500 text-white rounded-full w-8 h-8">
+                  <MdLink />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Website</p>
+                  <p>www.devjobs.com</p>
+                </div>
+              </div>
             </div>
           </section>
           <section className="w-[70%]">
@@ -119,17 +152,7 @@ export default function Profile() {
             {/* password change */}
             <form action="" className=" bg-white rounded">
               <h4 className="p-5 border-t">Change Password</h4>
-              <section className="flex items-center gap-5 px-5 py-2.5 mt-3">
-                <div className=" w-full">
-                  <label className="block mb-2" htmlFor="">
-                    Verification Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full border outline-none py-3 px-5 rounded"
-                    placeholder="example@gmail.com"
-                  />
-                </div>
+              <section className="flex flex-col items-center gap-5 px-5 py-2.5 mt-3">
                 <div className="w-full">
                   <label className="block mb-2" htmlFor="">
                     Current Password
@@ -153,8 +176,6 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
-              </section>
-              <section className="flex items-center gap-5 px-5 py-2.5">
                 <div className=" w-full">
                   <label className="block mb-2" htmlFor="">
                     New Password

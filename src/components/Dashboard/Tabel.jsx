@@ -1,9 +1,11 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const Tabel = () => {
+  const dark = Cookies.get("dark")
   return (
-    <div className="flex flex-col rounded-xl bg-white shadow-lg w-[40%]">
+    <div className={`flex flex-col rounded bg-white shadow border border-b-0 w-full ${dark && "dark"}`}>
       <div className="flex justify-between items-center p-5">
         <h3 className="text-xs font-bold">PROJECTS</h3>
         <BsThreeDotsVertical className="text-lg text-[#a8b2bc]" />
