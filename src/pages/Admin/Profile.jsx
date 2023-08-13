@@ -35,7 +35,7 @@ export default function Profile() {
                   className={`flex justify-center cursor-pointer absolute bg-white -right-2  bottom-1 items-center text-xs gap-1 border-2 rounded-full w-7 h-7 px-1 py-0.5`}
                 >
                   <MdModeEditOutline />
-                  <input className="hidden file" type="file" name="" id="" />
+                  <input className="file hidden" type="file" name="" id="" />
                 </div>
               </div>
               <div className="text-center my-5">

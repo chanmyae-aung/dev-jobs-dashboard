@@ -18,9 +18,18 @@ export default function CreateJob() {
   }
 
   const [editorHtml, setEditorHtml] = useState("");
+  const [editorReqHtml, setEditorReqHtml] = useState("");
+  const [editorResHtml, setEditorResHtml] = useState("");
   const handleEditorChange = (html) => {
     setEditorHtml(html);
   };
+  const handleEditorReqChange = (html) => {
+    setEditorReqHtml(html);
+  };
+  const handleEditorResChange = (html) => {
+    setEditorResHtml(html);
+  };
+
   return (
     <main>
       <section className="p-5">
@@ -138,11 +147,11 @@ export default function CreateJob() {
           </section>
           <section className="p-5">
             <h4>Requirements</h4>
-            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorHtml} onChange={handleEditorChange} />
+            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorReqHtml} onChange={handleEditorReqChange} />
           </section>
           <section className="p-5">
             <h4>Responsibilities</h4>
-            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorHtml} onChange={handleEditorChange} />
+            <ReactQuill className="w-full mt-3 bg-white h-full" value={editorResHtml} onChange={handleEditorResChange} />
           </section>
           <div className="p-5">
           <Button text={"Submit"}/>

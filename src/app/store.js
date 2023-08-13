@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeReducer from '../features/themeSlice'
+import { authApi } from "../api/authApi";
+import authSlice from "../features/authSlice";
+import themeSlice from "../features/themeSlice";
 
 export const store = configureStore({
   reducer: {
-    theme: themeReducer
+    themeSlice: themeSlice,
+    [authApi.reducerPath] : authApi.reducer,
+    authSlice: authSlice,
   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(pokemonApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authApi.middleware),
 });
