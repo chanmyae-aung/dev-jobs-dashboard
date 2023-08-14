@@ -95,21 +95,21 @@ export default function CompanyTable() {
         <footer className=" border-t py-5 flex items-center justify-end w-full">
           <div className="flex items-center border rounded ">
             <BiChevronsLeft
-              onClick={() => setCurrentPage(1)}
-              className="cursor-pointer  w-8 h-7 p-1"
+              onClick={() =>  currentPage > 1 && setCurrentPage(1)}
+              className={`${currentPage === 1 && "text-slate-200"} cursor-pointer  w-8 h-7 p-1`}
             />
             <BiChevronLeft
-              onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
-              className="cursor-pointer border-x w-8 h-7 p-1"
+              onClick={() => currentPage > 1 && setCurrentPage((prevPage) =>  prevPage - 1)}
+              className={`${currentPage === 1 && "text-slate-200"} cursor-pointer border-x w-8 h-7 p-1`}
             />
             <p className=" px-5">{`${currentPage}  -  ${data?.last_page}`}</p>
             <BiChevronRight
-              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
-              className="cursor-pointer border-x w-8 h-7 p-1"
+              onClick={() =>  currentPage < data?.last_page && setCurrentPage((prevPage) => prevPage + 1)}
+              className={`${currentPage === data?.last_page && "text-slate-200"} cursor-pointer border-x w-8 h-7 p-1`}
             />
             <BiChevronsRight
-              onClick={() => setCurrentPage(data?.last_page)}
-              className="cursor-pointer  w-8 h-7 p-1"
+              onClick={() =>  currentPage < data?.last_page && setCurrentPage(data?.last_page)}
+              className={`${currentPage === data?.last_page && "text-slate-200"} cursor-pointer  w-8 h-7 p-1`}
             />
           </div>
         </footer>

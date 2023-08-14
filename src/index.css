@@ -27,20 +27,30 @@
     transition: 150ms;
   } */
 
+  *{
+    font-family: 'Inter', sans-serif;
+  }
 
 body{
-    font-family: 'Inter', sans-serif;
     @apply text-slate-600
 }
 h2{
     font-weight: 700;
     font-size: xx-large;
+    @apply text-slate-600
+
 }
 h4{
     font-weight: 700;
+    @apply text-slate-700
+
 }
 h5{
     font-weight: 500;
+    @apply text-slate-600
+}
+p{
+    @apply text-slate-600
 }
  #sidebar a.active {
     @apply text-blue-600 bg-[#E7F5FF]

@@ -1,38 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../components/Button";
-import { useGetCompanyDetailQuery, useUpdateCompanyMutation } from "../../api/companyApi";
+import {
+  useGetCompanyDetailQuery,
+  useUpdateCompanyMutation,
+} from "../../api/companyApi";
 import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { appId, appSecret } from "../../constants/authKey";
+import { MdModeEditOutline } from "react-icons/md";
 
 export default function EditCompany() {
-    const nav = useNavigate()
+  const editImage = document.querySelector(".file");
+  const nav = useNavigate();
   const token = Cookies.get("token");
-  const {id} = useParams()
-  const [updateCompany, {isLoading}] = useUpdateCompanyMutation()
-  const {data} = useGetCompanyDetailQuery({token, id})
-  console.log(data)
+  const { id } = useParams();
+  const [updateCompany, { isLoading }] = useUpdateCompanyMutation();
+  // const { data } = useGetCompanyDetailQuery({ token, id });
   const [editorHtml, setEditorHtml] = useState("");
-
   const [state, setState] = useState({
-    name: data?.data.name,
-    email: data?.data.email,
-    hotline: data?.data.hotline,
-    location: data?.data.location,
-    image: data?.data.image,
-    website: data?.data.website,
-    description: data?.data.description,
+    name: "",
+    email: "",
+    hotline: "",
+    location: "",
+    image: "",
+    website: "",
+    description: "",
   });
   console.log(state);
-  console.log(editorHtml);
 
+  // to prevent undefined state use useEffect hook
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://159.223.80.82/api/v1/admin/company/${id}`,
+          {
+            headers: {
+              "app-id": appId,
+              "app-secret": appSecret,
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setState({
+          name: response.data.data.name,
+          email: response.data.data.email,
+          hotline: response.data.data.hotline,
+          location: response.data.data.location,
+          image: response.data.data.image,
+          website: response.data.data.website,
+          description: response.data.data.description,
+        });
+        console.log("API response:", response.data.data.name);
+      } catch (error) {
+        console.error("API error:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
+  console.log(typeof state.image);
   const updateData = new FormData();
   updateData.append("name", state.name);
   updateData.append("email", state.email);
   updateData.append("hotline", state.hotline);
   updateData.append("location", state.location);
-  updateData.append("image", state.image);
+  typeof state.image === "object" && updateData.append("image", state.image); 
   updateData.append("website", state.website);
   updateData.append("description", state.description);
 
@@ -41,9 +76,8 @@ export default function EditCompany() {
     const { data } = await updateCompany({ updateData, token, id });
     console.log(data);
     setState(state);
-    data?.success && nav(`/manage-companies`)
+    data?.success && nav(`/manage-companies`);
   };
-
 
   return (
     <main>
@@ -75,20 +109,36 @@ export default function EditCompany() {
             </div>
             <div className="w-full">
               <label className="block mb-2" htmlFor="">
-                Upload Company Logo
+                Update Company Logo
               </label>
-              <input
-                onChange={(e) =>
-                  setState((prevState) => ({
-                    ...prevState,
-                    image: e.target.files[0],
-                  }))
-                }
-                
-                type="file"
-                className="w-full outline-none py-3 px-5 rounded"
-                placeholder="e.g. Google"
-              />
+              <div className="w-fit flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-300">
+                  <img
+                    className="w-full h-full object-contain origin-center"
+                    src={state.image}
+                    alt=""
+                  />
+                </div>
+                <div
+                  onClick={() => editImage.click()}
+                  className={`cursor-pointer border flex items-center gap-2 border-gray-300 px-4 py-1 rounded`}
+                >
+                  <MdModeEditOutline />
+                  <p>Update Logo</p>
+                  <input
+                    onChange={(e) =>
+                      setState((prevState) => ({
+                        ...prevState,
+                        image: e.target.files[0],
+                      }))
+                    }
+                    className="file hidden"
+                    type="file"
+                    name=""
+                    id=""
+                  />
+                </div>
+              </div>
             </div>
           </section>
           <section className="flex items-center gap-5 px-5 py-2.5">
@@ -176,9 +226,17 @@ export default function EditCompany() {
               }}
             />
           </section>
-          <div className="p-5">
+          <div className="p-5 flex gap-5 justify-end">
+            <div onClick={() => nav(-1)}>
+              <Button
+                text={"Cancel"}
+                className={
+                  "border-blue-600 border text-blue-600 rounded px-10 py-1"
+                }
+              />
+            </div>
             <Button
-            disabled={isLoading}
+              disabled={isLoading}
               isLoading={isLoading}
               text={"Save"}
               className={"bg-blue-600 text-white rounded px-10 py-1"}

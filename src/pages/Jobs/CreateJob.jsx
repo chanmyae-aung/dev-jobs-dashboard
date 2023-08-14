@@ -3,16 +3,35 @@ import { BiChevronDown } from "react-icons/bi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../components/Button";
+import { useCreateJobMutation } from "../../api/jobApi";
+import { position } from "@chakra-ui/react";
 
 export default function CreateJob() {
   const [select, setSelect] = useState(false);
   const [display, setDisplay] = useState("Full Time");
   const [selectCompany, setSelectCompany] = useState(false);
   const [displayCompany, setDisplayCompany] = useState("Microsoft");
+  const [state, setState] = useState({
+    position: "",
+    posts: "",
+    company: "",
+    type: "",
+    salary: "",
+    description: "",
+    requirements: "",
+    responsibilities: "",
+  })
+
+  const [createJob, {isLoading}] = useCreateJobMutation()
+
+  const handleCreate = async() => {
+    const {data} = await createJob()
+  }
+
+
   const toggleSelect = () => {
     setSelect(!select);
   };
-
   const toggleSelectCompany = () => {
     setSelectCompany(!selectCompany)
   }
@@ -29,6 +48,15 @@ export default function CreateJob() {
   const handleEditorResChange = (html) => {
     setEditorResHtml(html);
   };
+  const jobData = new FormData()
+  jobData.append("position", state.position)
+  jobData.append("posts", state.posts)
+  jobData.append("company", state.company)
+  jobData.append("type", state.type)
+  jobData.append("salary", state.salary)
+  jobData.append("description", state.description)
+  jobData.append("requirements", state.requirements)
+  jobData.append("responsibilities", state.responsibilities)
 
   return (
     <main>
@@ -40,6 +68,9 @@ export default function CreateJob() {
               Job Position
             </label>
             <input
+            onChange={(e) => setState((prevState) => ({
+              ...prevState, position: e.target.value
+            }))}
               type="text"
               className="w-full border outline-none py-3 px-5 rounded"
               placeholder="e.g. Web Developer"
@@ -51,6 +82,9 @@ export default function CreateJob() {
                 Numbers of Post
               </label>
               <input
+              onChange={(e) => setState((prevState) => ({
+                ...prevState, posts: e.target.value
+              }))}
                 type="text"
                 className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 2"

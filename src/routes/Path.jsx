@@ -16,6 +16,7 @@ import Login from "../pages/Login";
 import RouteGuard from "../components/RouteGuard/RouteGuard";
 import ErrorPage from "../components/RouteGuard/ErrorPage";
 import EditCompany from "../pages/Company/EditCompany";
+import JobDetails from "../pages/Jobs/JobDetails";
 
 const Path = () => {
   return (
@@ -40,6 +41,7 @@ const Path = () => {
           <Route index element={<Dashboard />} />
           <Route path="create-job" element={<CreateJob />} />
           <Route path="manage-jobs" element={<ManageJobs />} />
+          <Route path="job-details/:id" element={<JobDetails />} />
           <Route path="create-company" element={<CreateCompany />} />
           <Route path="edit-company/:id" element={<EditCompany />} />
           <Route path="manage-companies" element={<ManageCompanies />} />
