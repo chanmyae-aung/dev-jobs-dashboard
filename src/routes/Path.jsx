@@ -15,6 +15,7 @@ import LoginGuard from "../components/RouteGuard/LoginGuard";
 import Login from "../pages/Login";
 import RouteGuard from "../components/RouteGuard/RouteGuard";
 import ErrorPage from "../components/RouteGuard/ErrorPage";
+import EditCompany from "../pages/Company/EditCompany";
 
 const Path = () => {
   return (
@@ -40,8 +41,9 @@ const Path = () => {
           <Route path="create-job" element={<CreateJob />} />
           <Route path="manage-jobs" element={<ManageJobs />} />
           <Route path="create-company" element={<CreateCompany />} />
+          <Route path="edit-company/:id" element={<EditCompany />} />
           <Route path="manage-companies" element={<ManageCompanies />} />
-          <Route path="company-info" element={<CompanyInfo />} />
+          <Route path="company-detail/:id" element={<CompanyInfo />} />
           <Route path="all-user" element={<AllUser />} />
           <Route path="user-detail" element={<UserDetail />} />
           <Route path="applicants" element={<Applicants />} />

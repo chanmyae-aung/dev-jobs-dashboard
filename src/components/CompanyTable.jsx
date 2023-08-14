@@ -1,53 +1,119 @@
-import { Table } from '@mantine/core';
-import React from 'react'
-import { MdOutlineDeleteOutline, MdOutlineEdit, MdViewInAr } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Table } from "@mantine/core";
+import React, { useState } from "react";
+import ConfirmBox from "../components/ComfirmBox";
+import {
+  MdOutlineDeleteOutline,
+  MdOutlineEdit,
+} from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import {
+  useDeleteCompanyMutation,
+  useGetCompanyQuery,
+} from "../api/companyApi";
+import Cookies from "js-cookie";
+import {
+  BiChevronLeft,
+  BiChevronRight,
+  BiChevronsLeft,
+  BiChevronsRight,
+  BiShowAlt,
+} from "react-icons/bi";
 
 export default function CompanyTable() {
-    const nav = useNavigate()
-  const elements = [
-    {id:1, job_id: 6, applicants: 12, email: 'C', jobs: 10, name: 'Carbon' },
-    {id:2, job_id: 7, applicants: 14, email: 'N', jobs: 10, name: 'Nitrogen' },
-    {id:3, job_id: 39, applicants: 8, email: 'Y', jobs: 10, name: 'Yttrium' },
-    {id:4, job_id: 56, applicants: 13, email: 'Ba', jobs: 10, name: 'Barium' },
-    {id:5, job_id: 58, applicants: 14, email: 'Ce', jobs: 10, name: 'Cerium' },
-  ];
-  const rows = elements.map((element) => (
-    <tr onClick={() => nav("/company-info")} className='cursor-pointer hover:bg-blue-50' key={element.id}>
-      <td>{element.id}</td>
-      <td>{element.name}</td>
-      <td>{element.email}</td>
-      <td>{element.job_id}</td>
-      <td>{element.jobs}</td>
-      <td>{element.applicants}</td>
+  const nav = useNavigate();
+  const token = Cookies.get("token");
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data } = useGetCompanyQuery({ token, currentPage });
+  console.log(data);
+  const [id, setId] = useState("");
+  const [confirm, setConfirm] = useState(false);
+
+  const [deleteCompany] = useDeleteCompanyMutation();
+
+  const handleDelete = async (e) => {
+    const { data } = await deleteCompany({ token, id });
+    console.log(data);
+  };
+
+  const rows = data?.data.map((el, index) => (
+    <tr className="cursor-pointer hover:bg-blue-50" key={el.id}>
+      <td>{index + 1}</td>
+      <td className="font-semibold">{el.name.toUpperCase()}</td>
+      <td>{el.email}</td>
+      <td>{el.id}</td>
+      <td>{el.jobs}</td>
+      <td>{el.applicants}</td>
       <td className="flex gap-5">
-        <MdViewInAr className="text-3xl bg-green-50 text-blue-500 rounded-full hover:bg-blue-500 hover:text-blue-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
-        <MdOutlineEdit className="text-3xl bg-blue-50 text-green-500 rounded-full hover:bg-green-500 hover:text-green-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
-        <MdOutlineDeleteOutline className="text-3xl bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-red-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
+        <BiShowAlt
+          onClick={() => nav(`/company-detail/${el.id}`)}
+          className="text-3xl bg-green-50 text-blue-500 rounded-full hover:bg-blue-500 hover:text-blue-50 p-1.5 cursor-pointer transition-all duration-200 ease-in"
+        />
+        <MdOutlineEdit
+          onClick={() => nav(`/edit-company/${el.id}`)}
+          className="text-3xl bg-blue-50 text-green-500 rounded-full hover:bg-green-500 hover:text-green-50 p-1.5 cursor-pointer transition-all duration-200 ease-in"
+        />
+        <MdOutlineDeleteOutline
+          onClick={() => {
+            setId(el.id);
+            setConfirm(true);
+          }}
+          className="text-3xl bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-red-50 p-1.5 cursor-pointer transition-all duration-200 ease-in"
+        />
       </td>
     </tr>
   ));
+
   return (
-    <main className='m-5 bg-white border rounded'>
-    <div>
-    <h4 className="p-5 border-b">Manage Companies</h4>
-    </div>
-    <section className='px-5'>
-    <Table verticalSpacing={"md"}>
-      <thead >
-        <tr >
-          <th>No</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Company ID</th>
-          <th>Posted Jobs</th>
-          <th>Applicants</th>
-          <th>More Action</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
-    </section>
+    <main className="m-5 bg-white border rounded">
+      <div>
+        {confirm && (
+          <ConfirmBox
+            confirm={confirm}
+            setConfirm={setConfirm}
+            deleteCompany={handleDelete}
+          />
+        )}
+      </div>
+      <div>
+        <h4 className="p-5 border-b">Manage Companies</h4>
+      </div>
+      <section className="px-5">
+        <Table verticalSpacing={"md"}>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Company ID</th>
+              <th>Posted Jobs</th>
+              <th>Applicants</th>
+              <th>More Action</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+        <footer className=" border-t py-5 flex items-center justify-end w-full">
+          <div className="flex items-center border rounded ">
+            <BiChevronsLeft
+              onClick={() => setCurrentPage(1)}
+              className="cursor-pointer  w-8 h-7 p-1"
+            />
+            <BiChevronLeft
+              onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
+              className="cursor-pointer border-x w-8 h-7 p-1"
+            />
+            <p className=" px-5">{`${currentPage}  -  ${data?.last_page}`}</p>
+            <BiChevronRight
+              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+              className="cursor-pointer border-x w-8 h-7 p-1"
+            />
+            <BiChevronsRight
+              onClick={() => setCurrentPage(data?.last_page)}
+              className="cursor-pointer  w-8 h-7 p-1"
+            />
+          </div>
+        </footer>
+      </section>
     </main>
-  )
+  );
 }

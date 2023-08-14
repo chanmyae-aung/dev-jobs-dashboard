@@ -154,7 +154,7 @@ export default function CreateJob() {
             <ReactQuill className="w-full mt-3 bg-white h-full" value={editorResHtml} onChange={handleEditorResChange} />
           </section>
           <div className="p-5">
-          <Button text={"Submit"}/>
+          <Button text={"Submit"} className={"bg-blue-600 text-white rounded px-10 py-1"}/>
           </div>
         </form>
       </section>
