@@ -3,15 +3,16 @@ import { BiChevronDown } from "react-icons/bi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../components/Button";
-import { useCreateJobMutation } from "../../api/jobApi";
+import { useCreateJobMutation, useUpdateJobMutation } from "../../api/jobApi";
 import { position } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { appId, appSecret } from "../../constants/authKey";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function CreateJob() {
+export default function EditJob() {
   const nav = useNavigate()
+  const { id } = useParams();
   const token = Cookies.get("token");
   const [select, setSelect] = useState(false);
   const [company, setCompany] = useState();
@@ -28,11 +29,41 @@ export default function CreateJob() {
       },
     });
     const { data } = await res.json();
+    console.log(data)
     setCompany(data);
   };
+  const fetchSingleJob = async () => {
+    const res = await fetch(`http://159.223.80.82/api/v1/admin/job/${id}`, {
+      headers: {
+        "app-id": appId,
+        "app-secret": appSecret,
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const { data } = await res.json();
+    console.log(data)
+    setDisplayCompany(data?.company.name)
+    setState({
+      position: data?.position,
+      candidates: data?.candidates,
+      // company: data?.company.name,
+      country: data?.country,
+      company_id: data?.company_id,
+      shift: data?.shift,
+      salary: data?.salary,
+      description: data?.job_description,
+      requirements: data?.requirement,
+      responsibilities: data?.responsibilities,
+    });
+    setEditorHtml(data?.job_description)
+    setEditorReqHtml(data?.requirement)
+    setEditorResHtml(data?.responsibilities)
+  };
+  console.log(company);
   useEffect(() => {
     fetchData();
-  }, [token]);
+    fetchSingleJob();
+  }, [id, token]);
 
   const [state, setState] = useState({
     position: "",
@@ -45,8 +76,9 @@ export default function CreateJob() {
     requirement: "",
     responsibilities: "",
   });
-  console.log(state)
-  const [createJob, { isLoading }] = useCreateJobMutation();
+  console.log(state);
+  
+  const [editJob, {isLoading}] = useUpdateJobMutation()
 
   const toggleSelect = () => {
     setSelect(!select);
@@ -59,29 +91,33 @@ export default function CreateJob() {
   const [editorReqHtml, setEditorReqHtml] = useState("");
   const [editorResHtml, setEditorResHtml] = useState("");
 
-  const jobData = new FormData();
-  jobData.append("position", state.position);
-  jobData.append("company_id", state.company_id);
-  jobData.append("candidates", state.candidates);
-  jobData.append("country", state.country);
-  jobData.append("shift", state.shift);
-  jobData.append("salary", state.salary);
-  jobData.append("job_description", state.job_description);
-  jobData.append("requirement", state.requirement);
-  jobData.append("responsibilities", state.responsibilities);
+  const updateData = new FormData();
+  updateData.append("position", state.position);
+  updateData.append("company_id", state.company_id);
+  updateData.append("candidates", state.candidates);
+  updateData.append("country", state.country);
+  updateData.append("shift", state.shift);
+  updateData.append("salary", state.salary);
+  updateData.append("job_description", state.job_description);
+  updateData.append("requirement", state.requirement);
+  updateData.append("responsibilities", state.responsibilities);
 
-  const handleCreate = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault()
-    const { data } = await createJob({jobData, token});
-    console.log(data)
+    const { data } = await editJob({ updateData, token, id });
+    console.log(data);
     data?.success && nav("/manage-jobs")
   };
 
   return (
     <main>
       <section className="p-5">
-        <form onSubmit={handleCreate} action="" className="border bg-white rounded">
-          <h4 className="p-5 border-b text-blue-600">Create Job</h4>
+        <form
+          onSubmit={handleEdit}
+          action=""
+          className="border bg-white rounded"
+        >
+          <h4 className="p-5 border-b text-blue-600">Update Job</h4>
           <section className="flex items-center gap-5 px-5 py-2.5">
             <div className=" w-full">
             <label className="block mb-2" htmlFor="">
@@ -130,7 +166,8 @@ export default function CreateJob() {
                     candidates: e.target.value,
                   }))
                 }
-                type="text"
+                value={state.candidates}
+                type="number"
                 className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 2"
               />
@@ -144,7 +181,9 @@ export default function CreateJob() {
                 className="w-full border outline-none py-3 bg-white relative rounded cursor-pointer"
               >
                 <div className="px-5 flex items-center justify-between">
-                  <p className="">{displayCompany ? displayCompany : "Select Company"}</p>
+                  <p className="">
+                    {displayCompany}
+                  </p>
                   <BiChevronDown
                     className={`text-xl ${
                       selectCompany && "rotate-180"
@@ -158,12 +197,15 @@ export default function CreateJob() {
                 >
                   {company?.map((i) => {
                     return (
-                      <div key={i.id}
+                      <div
+                        key={i.id}
                         onClick={(e) => {
                           setState((prevState) => ({
-                            ...prevState, company_id: i.id
-                          }))
-                          setDisplayCompany(e.target.textContent)}}
+                            ...prevState,
+                            company_id: i.id,
+                          }));
+                          setDisplayCompany(i.name);
+                        }}
                         className="w-full outline-none py-3 bg-white px-5 rounded-t border-b cursor-pointer"
                       >
                         {i.name}
@@ -184,7 +226,7 @@ export default function CreateJob() {
                 className="w-full border outline-none py-3 bg-white relative rounded cursor-pointer"
               >
                 <div className="px-5 flex items-center justify-between">
-                  <p className="">{display}</p>
+                  <p className="">{state.shift === 1 ? "Full Time": "Part Time"}</p>
                   <BiChevronDown
                     className={`text-xl ${
                       select && "rotate-180"
@@ -198,16 +240,18 @@ export default function CreateJob() {
                 >
                   <div
                     onClick={(e) => {
-                      setState({shift: 1})
-                      setDisplay(e.target.textContent)}}
+                      setState({ shift: 1 });
+                      setDisplay(e.target.textContent);
+                    }}
                     className="w-full outline-none py-3 bg-white px-5 rounded-t border-b cursor-pointer"
                   >
                     Full Time
                   </div>
                   <div
                     onClick={(e) => {
-                      setState({shift: 0})
-                      setDisplay(e.target.textContent)}}
+                      setState({ shift: 0 });
+                      setDisplay(e.target.textContent);
+                    }}
                     className="w-full outline-none py-3 bg-white px-5 rounded-b cursor-pointer"
                   >
                     Part Time
@@ -220,12 +264,13 @@ export default function CreateJob() {
                 Salary Range
               </label>
               <input
-              onChange={(e) =>
-                setState((prevState) => ({
-                  ...prevState,
-                  salary: e.target.value,
-                }))
-              }
+                onChange={(e) =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    salary: e.target.value,
+                  }))
+                }
+                value={state.salary}
                 type="text"
                 className="w-full border outline-none py-3 px-5 rounded"
                 placeholder="e.g. 5 - 8 lakhs"
@@ -247,7 +292,7 @@ export default function CreateJob() {
             />
           </section>
           <section className="p-5">
-            <h4>Requirement</h4>
+            <h4>Requirements</h4>
             <ReactQuill
               className="w-full mt-3 bg-white h-full"
               value={editorReqHtml}

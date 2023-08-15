@@ -29,10 +29,10 @@ export const jobApi = createApi({
       providesTags: ["job"],
     }),
     createJob: builder.mutation({
-      query: ({ formData, token }) => ({
+      query: ({ jobData, token }) => ({
         url: "/admin/job",
         method: "POST",
-        body: formData,
+        body: jobData,
         headers: {
           "app-id": appId,
           "app-secret": appSecret,

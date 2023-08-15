@@ -24,22 +24,20 @@ export default function CompanyTable() {
   const token = Cookies.get("token");
   const [currentPage, setCurrentPage] = useState(1);
   const { data } = useGetCompanyQuery({ token, currentPage });
-  console.log(data);
   const [id, setId] = useState("");
   const [confirm, setConfirm] = useState(false);
 
   const [deleteCompany] = useDeleteCompanyMutation();
 
-  const handleDelete = async (e) => {
+  const handleDelete = async () => {
     const { data } = await deleteCompany({ token, id });
-    console.log(data);
   };
 
   const rows = data?.data.map((el, index) => (
-    <tr className="cursor-pointer hover:bg-blue-50" key={el.id}>
+    <tr className="cursor-pointer hover:bg-blue-50 text-slate-700" key={el.id}>
       <td>{index + 1}</td>
-      <td className="font-semibold">{el.name.toUpperCase()}</td>
-      <td>{el.email}</td>
+      <td className="truncate font-semibold">{el.name}</td>
+      <td className="truncate">{el.email}</td>
       <td>{el.id}</td>
       <td>{el.jobs}</td>
       <td>{el.applicants}</td>
@@ -78,7 +76,7 @@ export default function CompanyTable() {
         <h4 className="p-5 border-b">Manage Companies</h4>
       </div>
       <section className="px-5">
-        <Table verticalSpacing={"md"}>
+        <Table verticalSpacing={"lg"}>
           <thead>
             <tr>
               <th>No</th>

@@ -54,6 +54,7 @@ export default function EditCompany() {
           website: response.data.data.website,
           description: response.data.data.description,
         });
+        setEditorHtml(response.data.data.description)
         console.log("API response:", response.data.data.name);
       } catch (error) {
         console.error("API error:", error);
@@ -217,6 +218,7 @@ export default function EditCompany() {
             <h4>Description</h4>
             <ReactQuill
               className="w-full mt-5 bg-white"
+              value={editorHtml}
               onChange={(html) => {
                 setEditorHtml(html);
                 setState((prevState) => ({

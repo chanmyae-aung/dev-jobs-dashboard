@@ -32,15 +32,15 @@ export default function JobDetails() {
             <div className='flex flex-col gap-5'>
             <div >
               <h4>Job Description</h4>
-              <p>{detail?.job_description}</p>
+              <p dangerouslySetInnerHTML={{ __html: detail?.job_description }}></p>
             </div>
             <div >
               <h4>Requirements</h4>
-              <p>{detail?.requirement}</p>
+              <p dangerouslySetInnerHTML={{ __html: detail?.requirement }}></p>
             </div>
             <div >
               <h4>Responsibilities</h4>
-              <p>{detail?.responsibilities}</p>
+              <p dangerouslySetInnerHTML={{ __html: detail?.responsibilities }}></p>
             </div>
             <div >
               <h4>Slary</h4>

@@ -12,12 +12,12 @@ export const authApi = createApi({
         method: "POST",
         body: { email, password },
         headers: {
-            "app-id": appId,
-            "app-secret": appSecret,
-            authorization: `Bearer ${token}`,
+          "app-id": appId,
+          "app-secret": appSecret,
+          authorization: `Bearer ${token}`,
         },
       }),
-      invalidatesTags: ['auth'],
+      invalidatesTags: ["auth"],
     }),
     logout: builder.mutation({
       query: (token) => ({
@@ -26,12 +26,37 @@ export const authApi = createApi({
         headers: {
           "app-id": appId,
           "app-secret": appSecret,
-          authorization: `Bearer ${token}`
+          authorization: `Bearer ${token}`,
         },
-        invalidatesTags: ["auth"]
-      }) ,
-    })
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    getProfile: builder.query({
+      query: (token) => ({
+        url: "/profile",
+        headers: {
+          "app-id": appId,
+          "app-secret": appSecret,
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ["auth"],
+    }),
+    updateProfile: builder.mutation({
+      query: ({token, updateData}) => ({
+        url: "/admin/auth",
+        method: "POST",
+        body: updateData,
+        headers: {
+          "app-id": appId,
+          "app-secret": appSecret,
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ['auth'],
+    }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authApi;
+export const { useLoginMutation, useLogoutMutation, useGetProfileQuery, useUpdateProfileMutation } =
+  authApi;

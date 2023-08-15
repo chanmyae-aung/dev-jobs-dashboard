@@ -8,15 +8,42 @@ import {
   MdModeEditOutline,
   MdPhone,
 } from "react-icons/md";
+import Cookies from "js-cookie";
+import { useGetProfileQuery, useUpdateProfileMutation } from "../../api/authApi";
+import { useUpdateCompanyMutation } from "../../api/companyApi";
 
 export default function Profile() {
+  const token = Cookies.get("token")
+  const [name, setName] = useState("")
+  const [image, setImage] = useState("")
   const [currentPass, setCurrentPass] = useState("");
-  const [newPass, setNewPass] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [showCurrentPass, setShowCurrentPass] = useState("");
   const [showNewPass, setShowNewPass] = useState("");
   const [showConfirmPass, setShowConfirmPass] = useState("");
   const editImage = document.querySelector(".file");
+
+  const {data} = useGetProfileQuery(token)
+  console.log(data?.data)
+
+  console.log(name, image, password)
+
+  const updateData = new FormData()
+  updateData.append("name", name)
+  updateData.append("image", image)
+  updateData.append("password", password)
+
+  console.log(updateData)
+  const [update] = useUpdateProfileMutation()
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+    const {data} = await update({updateData, token})
+    console.log(data)
+    
+  }
+
+
   return (
     <main>
       <div className="m-5 bg-white border rounded">
@@ -35,12 +62,12 @@ export default function Profile() {
                   className={`flex justify-center cursor-pointer absolute bg-white -right-2  bottom-1 items-center text-xs gap-1 border-2 rounded-full w-7 h-7 px-1 py-0.5`}
                 >
                   <MdModeEditOutline />
-                  <input className="file hidden" type="file" name="" id="" />
+                  <input onChange={e => setImage(e.target.files[0])} className="file hidden" type="file" name="" id="" />
                 </div>
               </div>
               <div className="text-center my-5">
-                <h4>Chan Myae Aung</h4>
-                <p>chanmyaeaung765@gmail.com</p>
+                <h4>{data?.data.name}</h4>
+                <p>{data?.data.email}</p>
               </div>
             </div>
             <div className="flex flex-col px-5 gap-3">
@@ -48,7 +75,7 @@ export default function Profile() {
                 <MdPhone className="text-xl text-blue-600 mt-1" />
                 <div>
                   <p className="text-sm font-semibold">Phone</p>
-                  <p>9876543891</p>
+                  <p>+959 123 456 789</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -75,7 +102,7 @@ export default function Profile() {
             </div>
           </section>
           <section className="w-[70%]">
-            <form action="" className=" bg-white rounded">
+            <form onSubmit={handleUpdate} action="" className=" bg-white rounded">
               <h4 className="p-5">Basic Information</h4>
               <section className="flex items-center gap-5 px-5 py-2.5 mt-3">
                 <div className=" w-full">
@@ -83,6 +110,7 @@ export default function Profile() {
                     Name
                   </label>
                   <input
+                  onChange={(e) => setName(e.target.value)}
                     type="text"
                     className="w-full border outline-none py-3 px-5 rounded"
                     placeholder="Chan Myae Aung"
@@ -95,7 +123,7 @@ export default function Profile() {
                   <input
                     type="email"
                     className="w-full border outline-none py-3 px-5 rounded"
-                    placeholder="chanmyaeaung765@gmail.com"
+                    value={"dev-job-search-admin@gmail.com"}
                   />
                 </div>
               </section>
@@ -105,9 +133,9 @@ export default function Profile() {
                     Phone
                   </label>
                   <input
+                  value={"+959 123 456 789"}
                     type="text"
                     className="w-full border outline-none py-3 px-5 rounded"
-                    placeholder="e.g. 0123476"
                   />
                 </div>
                 <div className=" w-full">
@@ -115,9 +143,9 @@ export default function Profile() {
                     Address
                   </label>
                   <input
+                  value={"Los Angeles Califonia PO"}
                     type="text"
                     className="w-full border outline-none py-3 px-5 rounded"
-                    placeholder="e.g. Los Angeles Califonia PO"
                   />
                 </div>
               </section>
@@ -129,7 +157,7 @@ export default function Profile() {
                   <input
                     type="text"
                     className="w-full border outline-none py-3 px-5 rounded"
-                    placeholder="e.g. example@gmail.com"
+                    value={"https://facebook.com/adm"}
                   />
                 </div>
                 <div className=" w-full">
@@ -137,18 +165,18 @@ export default function Profile() {
                     Website
                   </label>
                   <input
+                  value={"www.devjobs.com"}
                     type="text"
                     className="w-full border outline-none py-3 px-5 rounded"
-                    placeholder="e.g. 5 - 8 lakhs"
                   />
                 </div>
               </section>
-              <div className="p-5 ml-auto w-fit">
-                <Button text={"Save"} />
-              </div>
-            </form>
-            {/* password change */}
-            <form action="" className=" bg-white rounded">
+              {/* <div className="p-5 ml-auto w-fit">
+                <Button text={"Save"} className={"bg-blue-500 text-white px-10 py-2 rounded"}/>
+              </div> */}
+            {/* </form>
+            {/* password change 
+            <form action="" className=" bg-white rounded"> */}
               <h4 className="p-5 border-t">Change Password</h4>
               <section className="flex flex-col items-center gap-5 px-5 py-2.5 mt-3">
                 <div className="w-full">
@@ -180,7 +208,7 @@ export default function Profile() {
                   </label>
                   <div className="relative">
                     <input
-                      onChange={(e) => setNewPass(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       type={`${showNewPass ? "password" : "text"}`}
                       placeholder="New your password"
                       className={` bg-white w-full py-3 border rounded px-5 outline-none`}
@@ -222,7 +250,7 @@ export default function Profile() {
                 </div>
               </section>
               <div className="p-5 ml-auto w-fit">
-                <Button text={"Save"} />
+                <Button text={"Save"} className={"bg-blue-500 text-white px-10 py-2 rounded"}/>
               </div>
             </form>
           </section>

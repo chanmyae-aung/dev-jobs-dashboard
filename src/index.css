@@ -42,12 +42,10 @@ h2{
 }
 h4{
     font-weight: 700;
-    @apply text-slate-700
 
 }
 h5{
     font-weight: 500;
-    @apply text-slate-600
 }
 p{
     @apply text-slate-600
