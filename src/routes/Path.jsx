@@ -49,7 +49,7 @@ const Path = () => {
           <Route path="manage-companies" element={<ManageCompanies />} />
           <Route path="company-detail/:id" element={<CompanyInfo />} />
           <Route path="all-user" element={<AllUser />} />
-          <Route path="user-detail" element={<UserDetail />} />
+          <Route path="user-detail/:id" element={<UserDetail />} />
           <Route path="applicants" element={<Applicants />} />
           <Route path="profile" element={<Profile />} />
         </Route>

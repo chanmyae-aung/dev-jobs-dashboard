@@ -28,7 +28,22 @@ export const userApi = createApi({
       }),
       providesTags: ["user"],
     }),
+    getApplicantDetail: builder.query({
+      query: ({ token, id }) => ({
+        url: `/admin/applicants/apply/${id}`,
+        headers: {
+          "app-id": appId,
+          "app-secret": appSecret,
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ["user"],
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllApplicantsQuery } = userApi;
+export const {
+  useGetAllUsersQuery,
+  useGetAllApplicantsQuery,
+  useGetApplicantDetailQuery,
+} = userApi;

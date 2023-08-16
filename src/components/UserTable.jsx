@@ -22,7 +22,7 @@ export default function ManageTable({ title, name, shadow, applicants }) {
   console.log(data);
   const rows = users?.map((el) => (
     <tr
-      onClick={() => nav("/user-detail")}
+      // onClick={() => nav("/user-detail/${el.id}")}
       key={el.id}
       className={`cursor-pointer text-slate-700 ${
         dark ? "hover:bg-gray-500" : "hover:bg-blue-50"
@@ -35,9 +35,9 @@ export default function ManageTable({ title, name, shadow, applicants }) {
       <td>{el.jobs_count}</td>
       {/* <td>{el.applicants}</td> */}
       <td className="flex gap-5">
-        <BiShowAlt
+        {el.jobs_count ? <BiShowAlt onClick={() => nav(`/user-detail/${el.id}`)}
           className="text-3xl bg-green-50 text-blue-500 rounded-full hover:bg-blue-500 hover:text-blue-50 p-1.5 cursor-pointer transition-all duration-200 ease-in"
-        />
+        /> : ""}
       </td>
     </tr>
   ));

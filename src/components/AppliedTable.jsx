@@ -1,55 +1,51 @@
 import React, { useState } from "react";
 import ConfirmBox from "../components/ComfirmBox";
 import { Table } from "@mantine/core";
-import { BiChevronLeft, BiChevronRight, BiChevronsLeft, BiChevronsRight, BiShowAlt } from "react-icons/bi";
-import { MdOutlineDeleteOutline, MdOutlineEdit, MdViewInAr } from "react-icons/md";
+import {
+  BiChevronLeft,
+  BiChevronRight,
+  BiChevronsLeft,
+  BiChevronsRight,
+  BiShowAlt,
+} from "react-icons/bi";
+import {
+  MdOutlineDeleteOutline,
+  MdOutlineEdit,
+  MdViewInAr,
+} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useDeleteJobMutation, useGetJobQuery } from "../api/jobApi";
 import Cookies from "js-cookie";
+import { useGetApplicantDetailQuery } from "../api/userApi";
 
-export default function JobTable({title}) {
-  const token = Cookies.get("token")
-  const [confirm, setConfirm] = useState(false)
-  const [id, setId] = useState(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [deleteJob] = useDeleteJobMutation()
-  const {data} = useGetJobQuery({token, currentPage})
-  const jobs = data?.data.data
+export default function AppliedTable({ title, id }) {
+  const token = Cookies.get("token");
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: job } = useGetJobQuery({ token, currentPage });
+  const jobs = job?.data.data;
   const nav = useNavigate();
+  const { data, isFetching } = useGetApplicantDetailQuery({ id, token });
+  console.log(data);
 
-  const handleDelete = async () => {
-    const {data} = await deleteJob({token, id})
-  }
-  
-  const rows = jobs?.map((el, index) => (
-    <tr key={el.id} className="cursor-pointer text-slate-700 hover:bg-blue-50">
-      <td>{index +1}</td>
+  const rows = data?.map((el, index) => (
+    <tr key={el.id} className=" text-slate-700 hover:bg-blue-50">
+      <td>{index + 1}</td>
       <td className="truncate font-semibold">{el.position}</td>
-      <td className="truncate">{el.company.name}</td>
-      <td>{el.id}</td>
-      <td>{el.shift === 0 ? "Part Time" : "Full Time"}</td>
-      <td>{el.candidates}</td>
-      <td className="flex gap-5">
-        <BiShowAlt onClick={() => nav(`/job-details/${el.id}`)} className="text-3xl bg-green-50 text-blue-500 rounded-full hover:bg-blue-500 hover:text-blue-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
-        <MdOutlineEdit onClick={() => nav(`/edit-job/${el.id}`)} className="text-3xl bg-green-50 text-green-500 rounded-full hover:bg-green-500 hover:text-green-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
-        <MdOutlineDeleteOutline onClick={() => {
-            setId(el.id);
-            setConfirm(true);
-          }} className="text-3xl bg-red-50 text-red-500 rounded-full hover:bg-red-500 hover:text-red-50 p-1.5 cursor-pointer transition-all duration-200 ease-in" />
+      <td className="truncate">{el.job.company.name}</td>
+      <td>{el.job_id}</td>
+      <td>
+        <a target="_blank"
+          className="border rounded border-blue-200 hover:bg-blue-200 px-3 py-1"
+          href={el.cv}
+          download={true}
+        >
+          download cv
+        </a>
       </td>
     </tr>
   ));
   return (
     <main className={`${title ? "" : "m-5 border"} bg-white  rounded`}>
-      <div>
-        {confirm && (
-          <ConfirmBox
-            confirm={confirm}
-            setConfirm={setConfirm}
-            deleteJob={handleDelete}
-          />
-        )}
-      </div>
       <div>
         <h4 className={`p-5 border-b`}>{title ? title : "Manage Jobs"}</h4>
       </div>
@@ -61,14 +57,12 @@ export default function JobTable({title}) {
               <th>Position</th>
               <th>Company</th>
               <th>Job ID</th>
-              <th>Type</th>
-              <th>Applicants</th>
-              <th>More Action</th>
+              <th>Download CV</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
         </Table>
-        <footer className=" border-t py-5 flex items-center justify-end w-full">
+        {/* <footer className=" border-t py-5 flex items-center justify-end w-full">
           <div className="flex items-center border rounded ">
             <BiChevronsLeft
               onClick={() =>  currentPage > 1 && setCurrentPage(1)}
@@ -88,7 +82,7 @@ export default function JobTable({title}) {
               className={`${currentPage === data?.data.last_page && "text-slate-200"} cursor-pointer  w-8 h-7 p-1`}
             />
           </div>
-        </footer>
+        </footer> */}
       </section>
     </main>
   );
