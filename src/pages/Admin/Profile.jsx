@@ -39,8 +39,8 @@ export default function Profile() {
   const handleUpdate = async (e) => {
     e.preventDefault()
     const {data} = await update({updateData, token})
-    console.log(data)
-    
+    setName("")
+    setPassword("")
   }
 
 
@@ -51,10 +51,10 @@ export default function Profile() {
         <div className="w-full flex">
           <section className="p-5 w-[30%] border-r flex flex-col">
             <div className="flex flex-col items-center justify-center">
-              <div className=" border-2 relative border-blue-500 rounded-full">
+              <div className=" border-2 relative border-blue-500 w-24 h-24 flex justify-center items-center p-1 rounded-full">
                 <img
-                  className="w-24"
-                  src="https://img.icons8.com/?size=512&id=23476&format=png"
+                  className=""
+                  src={data?.data.image}
                   alt=""
                 />
                 <div
@@ -149,7 +149,7 @@ export default function Profile() {
                   />
                 </div>
               </section>
-              <section className="flex items-center gap-5 px-5 py-2.5">
+              <section className="flex items-center gap-5 px-5 py-2.5 mb-5">
                 <div className=" w-full">
                   <label className="block mb-2" htmlFor="">
                     Social
@@ -171,12 +171,6 @@ export default function Profile() {
                   />
                 </div>
               </section>
-              {/* <div className="p-5 ml-auto w-fit">
-                <Button text={"Save"} className={"bg-blue-500 text-white px-10 py-2 rounded"}/>
-              </div> */}
-            {/* </form>
-            {/* password change 
-            <form action="" className=" bg-white rounded"> */}
               <h4 className="p-5 border-t">Change Password</h4>
               <section className="flex flex-col items-center gap-5 px-5 py-2.5 mt-3">
                 <div className="w-full">

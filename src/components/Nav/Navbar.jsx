@@ -5,12 +5,15 @@ import Theme from "./Theme";
 import NotiSidebar from "./NotiSidebar";
 import Profile from "./Profile";
 import Cookies from "js-cookie";
+import { useGetProfileQuery } from "../../api/authApi";
 
 const Navbar = () => {
   const dark = Cookies.get("dark")
+  const token = Cookies.get("token")
   const [show, setShow] = useState(false);
   const [showNoti, setShowNoti] = useState();
   const [showProfile, setShowProfile] = useState(false);
+  const {data} = useGetProfileQuery(token)
   const toggleShow = () => {
     setShow(!show);
   };
@@ -84,21 +87,20 @@ const Navbar = () => {
           <div className="relative cursor-pointer">
             <div
               onClick={toggleProfile}
-              className="w-[40px] h-[40px] rounded-full overflow-hidden ml-5"
+              className="w-[40px] h-[40px] p-1 nav-btn flex justify-center items-center  rounded-full overflow-hidden ml-5"
             >
               <img
                 className=""
-                src="https://d33wubrfki0l68.cloudfront.net/053f2dfd0df2f52c41e903a21d177b0b44abc9b1/1282c/assets/images/profiles/profile-06.jpeg"
+                src={data?.data.image}
                 alt=""
               />
             </div>
-            <span className="w-3 h-3 absolute right-0 bottom-0 border border-white rounded-full bg-green-500"></span>
             <div
               className={`${
                 !showProfile ? "scale-y-0" : "scale-y-1"
               } transform transition origin-top duration-200 z-10 absolute right-0`}
             >
-              <Profile />
+              <Profile toggleProfile={toggleProfile} />
             </div>
           </div>
         </div>
