@@ -22,7 +22,7 @@ export default function JobDetails() {
               />
             </div>
             <div className='mb-10'>
-              <h4 className='text-xl'>{detail?.position}</h4>
+              <h4 className='text-xl'>{`${detail?.position} - ${detail?.candidates} (M/F)`}</h4>
               <div>
                 <h4>{detail?.company.name}</h4>
                 <p>{detail?.company.emial}</p>

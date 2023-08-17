@@ -10,11 +10,11 @@ import { MdModeEditOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateCompany() {
-  const nav = useNavigate()
-  const editImage = document.querySelector(".file")
+  const nav = useNavigate();
+  const editImage = document.querySelector(".file");
   const token = Cookies.get("token");
   const [select, setSelect] = useState(false);
-  const [createCompany, {isLoading}] = useCreateCompanyMutation();
+  const [createCompany, { isLoading }] = useCreateCompanyMutation();
   const [editorHtml, setEditorHtml] = useState("");
 
   const [state, setState] = useState({
@@ -41,11 +41,10 @@ export default function CreateCompany() {
   const handleCreate = async (e) => {
     e.preventDefault();
     const { data } = await createCompany({ formData, token });
-    data?.success && nav("/manage-companies")
+    data?.success && nav("/manage-companies");
     console.log(data);
     setState(state);
   };
-
   return (
     <main>
       <section className="p-5 ">
@@ -79,24 +78,30 @@ export default function CreateCompany() {
               </label>
               <div className="w-fit flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-300">
-                <img
-                  className="w-full object-contain origin-center"
-                  src={state.image}
-                  alt=""
-                />
+                  <img
+                    className="w-full object-contain origin-center"
+                    src={state.image}
+                    alt=""
+                  />
                 </div>
                 <div
                   onClick={() => editImage.click()}
                   className={`cursor-pointer border flex items-center gap-2 border-gray-300 px-4 py-1 rounded`}
                 >
-                  <MdModeEditOutline/>
+                  <MdModeEditOutline />
                   <p>Create Logo</p>
-                  <input onChange={(e) =>
-                  setState((prevState) => ({
-                    ...prevState,
-                    image: e.target.files[0],
-                  }))
-                } className="file hidden" type="file" name="" id="" />
+                  <input
+                    onChange={(e) =>
+                      setState((prevState) => ({
+                        ...prevState,
+                        image: e.target.files[0],
+                      }))
+                    }
+                    className="file hidden"
+                    type="file"
+                    name=""
+                    id=""
+                  />
                 </div>
               </div>
             </div>
@@ -184,7 +189,7 @@ export default function CreateCompany() {
           </section>
           <div className="p-5">
             <Button
-            disabled={isLoading}
+              disabled={isLoading}
               isLoading={isLoading}
               text={"Submit"}
               className={"bg-blue-600 text-white rounded px-10 py-1"}
