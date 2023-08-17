@@ -10,7 +10,7 @@ export default function PopularJobs() {
     console.log(data)
   const elements = data?.data;
   const rows = elements?.map((element, index) => (
-    <tr key={element.id} className="text-sm">
+    <tr key={element.id} className="text-sm ">
       <td>{index +1}</td>
       <td>{element.position}</td>
       <td>({element.candidates}) posts</td>

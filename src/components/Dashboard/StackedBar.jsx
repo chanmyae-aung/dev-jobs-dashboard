@@ -124,7 +124,7 @@ const StackedBar = () => {
           </div>
         </div>
         <div className="">
-          <Bar data={data} options={options} height={300}></Bar>
+          <Bar data={data} options={options} height={273}></Bar>
         </div>
       </div>
     </div>

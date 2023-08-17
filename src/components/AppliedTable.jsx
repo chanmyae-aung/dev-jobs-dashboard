@@ -49,9 +49,9 @@ export default function AppliedTable({ title, id }) {
       <div>
         <h4 className={`p-5 border-b`}>{title ? title : "Manage Jobs"}</h4>
       </div>
-      <section className="px-5">
+      <section className="px-5 h-[27.5rem] relative overflow-y-scroll">
         <Table verticalSpacing={"lg"}>
-          <thead>
+          <thead className="sticky top-0 bg-white">
             <tr>
               <th>No.</th>
               <th>Position</th>
