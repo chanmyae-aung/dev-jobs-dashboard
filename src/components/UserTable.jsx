@@ -82,7 +82,7 @@ export default function ManageTable({ title, name, shadow, applicants }) {
             <p className=" px-5">{`${currentPage}  -  ${data?.meta.last_page}`}</p>
             <BiChevronRight
               onClick={() =>
-                currentPage < data?.last_page &&
+                currentPage < data?.meta.last_page &&
                 setCurrentPage((prevPage) => prevPage + 1)
               }
               className={`${

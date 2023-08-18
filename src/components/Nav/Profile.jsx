@@ -24,7 +24,7 @@ const Profile = ({ toggleProfile }) => {
   isLoading && <Loading isLoading={isLoading} />;
   return (
     <div
-      className={`shadow-lg flex flex-col mt-3 justify-center w-60 rounded-lg bg-white ${
+      className={`shadow-lg flex flex-col mt-3 justify-center w-80 rounded-lg bg-white ${
         dark && "dark"
       }`}
     >
@@ -32,9 +32,9 @@ const Profile = ({ toggleProfile }) => {
         <div className="w-[40px] h-[40px] p-1 flex justify-center items-center rounded-full border">
           <img className="w-full" src={data?.data.image} alt="" />
         </div>
-        <div className="text-sm">
-          <h4 className="font-bold">Ellie Tucker</h4>
-          <p>ellie.tucker@dashly.com</p>
+        <div className="text-sm overflow-hidden">
+          <h4 className="font-bold">{data?.data.name}</h4>
+          <p className="truncate">{data?.data.email}</p>
         </div>
       </div>
       <div className="flex flex-col p-2 border-b text-sm relative">

@@ -30,8 +30,8 @@ const Navbar = () => {
 
   return (
     <>
-      <main className={`${dark && "dark"} flex bg-white shadow relative w-full items-center justify-center md:justify-between md:px-5 p-3 bg-transparent`}>
-        <div className=" flex">
+      <main className={`${dark && "dark"} flex bg-white shadow relative w-full items-center justify-end md:px-5 p-3 bg-transparent`}>
+        {/* <div className=" flex">
           <input
             type="text"
             className={`${dark && "body-dark border-gray-500"} w-full border-y border-l text-sm py-2 outline-none px-5 rounded-l`}
@@ -40,7 +40,7 @@ const Navbar = () => {
           <button className="bg-blue-500 px-3 p-2 text-white rounded-r">
             <BiSearch className="" />
           </button>
-        </div>
+        </div> */}
         <div className="flex items-center">
           {/* Select Theme */}
           <div className="relative mx-5">
