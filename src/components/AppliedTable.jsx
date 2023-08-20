@@ -17,15 +17,17 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteJobMutation, useGetJobQuery } from "../api/jobApi";
 import Cookies from "js-cookie";
 import { useGetApplicantDetailQuery } from "../api/userApi";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AppliedTable({ title, id }) {
   const token = Cookies.get("token");
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch()
+  const currentPage = useSelector(state => state.applicantSlice.currentPage)
   const { data: job } = useGetJobQuery({ token, currentPage });
   const jobs = job?.data.data;
   const nav = useNavigate();
   const { data, isFetching } = useGetApplicantDetailQuery({ id, token });
-  console.log(data);
 
   const rows = data?.map((el, index) => (
     <tr key={el.id} className=" text-slate-700 hover:bg-blue-50">

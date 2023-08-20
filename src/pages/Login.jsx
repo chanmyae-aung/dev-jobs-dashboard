@@ -21,13 +21,11 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault()
     const {data} = await login({email, password})
-    console.log(data)
     dispatch(loginAdmin({token: data?.data.token}))
     data?.data.token && nav("/")
     
   }
-  // isLoading && <Loading isLoading={isLoading}/>
-  // isLoading && <div>loading....</div>
+
   return (
     <main className="flex flex-col justify-center items-center w-screen h-screen">
       <section className="w-[21rem] border rounded p-5">

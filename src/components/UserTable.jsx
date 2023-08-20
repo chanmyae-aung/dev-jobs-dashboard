@@ -10,17 +10,21 @@ import {
   BiChevronsRight,
   BiShowAlt,
 } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { firstPage, lastPage, nextPage, prevPage } from "../features/userSlice";
 
-export default function ManageTable({ title, name, shadow, applicants }) {
+export default function ManageTable({ title, name, shadow, applicants, lastpage }) {
   const dark = Cookies.get("dark");
   const token = Cookies.get("token");
   const nav = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch()
+  // const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useSelector(state => state.userSlice.currentPage)
 
   const { data } = useGetAllUsersQuery({ token, currentPage });
   const users = applicants ? applicants : data?.data;
-  console.log(data);
-  const rows = users?.map((el) => (
+  const last_page = applicants ? lastpage : data?.meta.last_page
+  const rows = users?.map((el, index) => (
     <tr
       // onClick={() => nav("/user-detail/${el.id}")}
       key={el.id}
@@ -28,7 +32,7 @@ export default function ManageTable({ title, name, shadow, applicants }) {
         dark ? "hover:bg-gray-500" : "hover:bg-blue-50"
       }`}
     >
-      <td>{el.id}</td>
+      <td>{index + 1}</td>
       <td className="font-semibold">{el.name}</td>
       <td>{el.email}</td>
       <td>{el.id}</td>
@@ -66,36 +70,36 @@ export default function ManageTable({ title, name, shadow, applicants }) {
         <footer className=" border-t py-5 flex items-center justify-end w-full">
           <div className="flex items-center border rounded ">
             <BiChevronsLeft
-              onClick={() => currentPage > 1 && setCurrentPage(1)}
+              onClick={() => currentPage > 1 && dispatch(firstPage())}
               className={`${
                 currentPage === 1 && "text-slate-200"
               } cursor-pointer  w-8 h-7 p-1`}
             />
             <BiChevronLeft
               onClick={() =>
-                currentPage > 1 && setCurrentPage((prevPage) => prevPage - 1)
+                currentPage > 1 && dispatch(prevPage())
               }
               className={`${
                 currentPage === 1 && "text-slate-200"
               } cursor-pointer border-x w-8 h-7 p-1`}
             />
-            <p className=" px-5">{`${currentPage}  -  ${data?.meta.last_page}`}</p>
+            <p className=" px-5">{`${currentPage}  -  ${last_page}`}</p>
             <BiChevronRight
               onClick={() =>
-                currentPage < data?.meta.last_page &&
-                setCurrentPage((prevPage) => prevPage + 1)
+                currentPage < last_page &&
+                dispatch(nextPage())
               }
               className={`${
-                currentPage === data?.meta.last_page && "text-slate-200"
+                currentPage === last_page && "text-slate-200"
               } cursor-pointer border-x w-8 h-7 p-1`}
             />
             <BiChevronsRight
               onClick={() =>
-                currentPage < data?.meta.last_page &&
-                setCurrentPage(data?.meta.last_page)
+                currentPage < last_page &&
+                dispatch(lastPage({currentPage: last_page}))
               }
               className={`${
-                currentPage === data?.meta.last_page && "text-slate-200"
+                currentPage === last_page && "text-slate-200"
               } cursor-pointer  w-8 h-7 p-1`}
             />
           </div>

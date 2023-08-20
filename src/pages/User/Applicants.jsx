@@ -11,7 +11,7 @@ export default function Applicants() {
   const applicants = data?.data
   return (
     <div>
-      <UserTable applicants={applicants} name={"Applicant Name"} title={"Manage Applicants"}/>
+      <UserTable lastpage ={data?.meta.last_page} applicants={applicants} name={"Applicant Name"} title={"Manage Applicants"}/>
     </div>
   )
 }

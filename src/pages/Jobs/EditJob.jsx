@@ -29,7 +29,6 @@ export default function EditJob() {
       },
     });
     const { data } = await res.json();
-    console.log(data)
     setCompany(data);
   };
   const fetchSingleJob = async () => {
@@ -41,7 +40,6 @@ export default function EditJob() {
       },
     });
     const { data } = await res.json();
-    console.log(data)
     setDisplayCompany(data?.company.name)
     setState({
       position: data?.position,
@@ -76,7 +74,6 @@ export default function EditJob() {
     requirement: "",
     responsibilities: "",
   });
-  console.log(state);
   
   const [editJob, {isLoading}] = useUpdateJobMutation()
 
@@ -105,7 +102,6 @@ export default function EditJob() {
   const handleEdit = async (e) => {
     e.preventDefault()
     const { data } = await editJob({ updateData, token, id });
-    console.log(data);
     data?.success && nav("/manage-jobs")
   };
 
@@ -117,7 +113,7 @@ export default function EditJob() {
           action=""
           className="border bg-white rounded"
         >
-          <h4 className="p-5 border-b text-blue-600">Update Job</h4>
+          <h4 className="p-5 border-b">Update Job</h4>
           <section className="flex items-center gap-5 px-5 py-2.5">
             <div className=" w-full">
             <label className="block mb-2" htmlFor="">

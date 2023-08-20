@@ -15,7 +15,6 @@ export default function UserDetail() {
   const {data, isFetching} = useGetApplicantDetailQuery({id, token})
   const detail = data && data[0]
   const applied = data?.map(i => console.log(i.id))
-  // console.log(applied)
   if (isFetching) {
     return(
       <div className="w-full h-full flex items-center justify-center">

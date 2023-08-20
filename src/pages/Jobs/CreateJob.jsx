@@ -46,7 +46,6 @@ export default function CreateJob() {
     requirement: "",
     responsibilities: "",
   });
-  console.log(state);
   const [createJob, { isLoading }] = useCreateJobMutation();
 
   const toggleSelect = () => {
@@ -74,7 +73,6 @@ export default function CreateJob() {
   const handleCreate = async (e) => {
     e.preventDefault();
     const { data } = await createJob({ jobData, token });
-    console.log(data);
     data?.success && nav("/manage-jobs");
   };
 

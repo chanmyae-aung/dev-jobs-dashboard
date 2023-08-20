@@ -8,7 +8,6 @@ export default function JobDetails() {
     const {id} = useParams()
     const {data} = useGetJobDetailQuery({token, id})
     const detail = data?.data
-    console.log(detail)
   return (
     <main className='m-5 rounded border bg-white'>
          <h4 className="p-5 border-b">Job Details</h4>
@@ -16,8 +15,8 @@ export default function JobDetails() {
             <div className="flex text-center gap-5 mb-5 items-center">
               <img
                 className="w-16"
-                src="https://img.icons8.com/?size=512&id=106536&format=png"
-                // src={detail?.company.image}
+                // src="https://img.icons8.com/?size=512&id=106536&format=png"
+                src={detail?.company.image ? detail?.company.image : "https://img.icons8.com/?size=512&id=106536&format=png"}
                 alt=""
               />
             </div>

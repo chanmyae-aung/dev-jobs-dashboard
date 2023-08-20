@@ -29,7 +29,6 @@ export default function EditCompany() {
     website: "",
     description: "",
   });
-  console.log(state);
 
   // to prevent undefined state use useEffect hook
   useEffect(() => {
@@ -62,7 +61,6 @@ export default function EditCompany() {
     };
     fetchData();
   }, [id]);
-  console.log(typeof state.image);
   const updateData = new FormData();
   updateData.append("name", state.name);
   updateData.append("email", state.email);
@@ -75,7 +73,6 @@ export default function EditCompany() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     const { data } = await updateCompany({ updateData, token, id });
-    console.log(data);
     setState(state);
     data?.success && nav(`/manage-companies`);
   };

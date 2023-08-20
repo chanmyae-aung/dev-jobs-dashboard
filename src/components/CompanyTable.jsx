@@ -18,11 +18,15 @@ import {
   BiChevronsRight,
   BiShowAlt,
 } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { firstPage, lastPage, nextPage, prevPage } from "../features/companySlice";
 
 export default function CompanyTable() {
   const nav = useNavigate();
   const token = Cookies.get("token");
-  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch()
+  const currentPage = useSelector(state => state.companySlice.currentPage)
+  // const [currentPage, setCurrentPage] = useState(1);
   const { data } = useGetCompanyQuery({ token, currentPage });
   const [id, setId] = useState("");
   const [confirm, setConfirm] = useState(false);
@@ -93,20 +97,20 @@ export default function CompanyTable() {
         <footer className=" border-t py-5 flex items-center justify-end w-full">
           <div className="flex items-center border rounded ">
             <BiChevronsLeft
-              onClick={() =>  currentPage > 1 && setCurrentPage(1)}
+              onClick={() =>  currentPage > 1 && dispatch(firstPage())}
               className={`${currentPage === 1 && "text-slate-200"} cursor-pointer  w-8 h-7 p-1`}
             />
             <BiChevronLeft
-              onClick={() => currentPage > 1 && setCurrentPage((prevPage) =>  prevPage - 1)}
+              onClick={() => currentPage > 1 && dispatch(prevPage())}
               className={`${currentPage === 1 && "text-slate-200"} cursor-pointer border-x w-8 h-7 p-1`}
             />
             <p className=" px-5">{`${currentPage}  -  ${data?.last_page}`}</p>
             <BiChevronRight
-              onClick={() =>  currentPage < data?.last_page && setCurrentPage((prevPage) => prevPage + 1)}
+              onClick={() =>  currentPage < data?.last_page && dispatch(nextPage())}
               className={`${currentPage === data?.last_page && "text-slate-200"} cursor-pointer border-x w-8 h-7 p-1`}
             />
             <BiChevronsRight
-              onClick={() =>  currentPage < data?.last_page && setCurrentPage(data?.last_page)}
+              onClick={() =>  currentPage < data?.last_page && dispatch(lastPage({currentPage: data?.last_page}))}
               className={`${currentPage === data?.last_page && "text-slate-200"} cursor-pointer  w-8 h-7 p-1`}
             />
           </div>

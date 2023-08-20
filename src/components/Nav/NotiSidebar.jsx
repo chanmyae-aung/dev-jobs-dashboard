@@ -8,8 +8,8 @@ const NotiSidebar = ({toggleNoti}) => {
   const dark = Cookies.get("dark")
   return (
     <div className={`w-full ${dark && "dark"}`}>
-      <div className={`flex justify-between items-center px-5 border-b py-7 font-bold text-lg bg-white sticky top-0 ${dark && "dark"}`}>
-        <h2>Notifications</h2>
+      <div className={`flex justify-between items-center px-5 border-b py-[18px] font-bold text-lg bg-white sticky top-0 ${dark && "dark"}`}>
+        <h4>Notifications</h4>
         <div className="flex gap-4">
           <BiDotsHorizontalRounded className="cursor-pointer"/>
           <CgClose onClick={toggleNoti} className="cursor-pointer"/>

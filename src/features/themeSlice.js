@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie'
 
 const initialState = {
-  dark: true,
+  dark: false,
 }
 
 export const themeSlice = createSlice({
@@ -11,10 +11,10 @@ export const themeSlice = createSlice({
   reducers: {
     darkMode: (state) => {
         // state.dark = !state.dark
-        Cookies.set("dark", state.dark)
+        // Cookies.set("dark", state.dark = false)
     },
     lightMode: () => {
-      Cookies.remove("dark")  
+      // Cookies.remove("dark")  
     }
 }})
 export const {darkMode, lightMode} = themeSlice.actions

@@ -26,8 +26,6 @@ export default function CreateCompany() {
     website: "",
     description: "",
   });
-  console.log(state);
-  console.log(editorHtml);
 
   const formData = new FormData();
   formData.append("name", state.name);
@@ -42,7 +40,6 @@ export default function CreateCompany() {
     e.preventDefault();
     const { data } = await createCompany({ formData, token });
     data?.success && nav("/manage-companies");
-    console.log(data);
     setState(state);
   };
   return (
