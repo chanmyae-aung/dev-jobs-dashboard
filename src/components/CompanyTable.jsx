@@ -28,6 +28,7 @@ export default function CompanyTable() {
   const currentPage = useSelector(state => state.companySlice.currentPage)
   // const [currentPage, setCurrentPage] = useState(1);
   const { data } = useGetCompanyQuery({ token, currentPage });
+  console.log(data)
   const [id, setId] = useState("");
   const [confirm, setConfirm] = useState(false);
 
