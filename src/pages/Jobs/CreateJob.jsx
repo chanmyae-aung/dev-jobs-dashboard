@@ -5,7 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import Button from "../../components/Button";
 import { useCreateJobMutation } from "../../api/jobApi";
 import Cookies from "js-cookie";
-import { appId, appSecret } from "../../constants/authKey";
+import { appId, appSecret, baseUrl } from "../../constants/authKey";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateJob() {
@@ -19,7 +19,7 @@ export default function CreateJob() {
   // to prevent undefined state use useEffect hook
   const fetchData = async () => {
     const res = await fetch(
-      `http://159.223.80.82/api/v1/admin/company/dropdown`,
+      `${baseUrl}/admin/company/dropdown`,
       {
         headers: {
           "app-id": appId,
@@ -70,10 +70,13 @@ export default function CreateJob() {
   jobData.append("requirement", state.requirement);
   jobData.append("responsibilities", state.responsibilities);
 
+  console.log("formdata",state)
+  
   const handleCreate = async (e) => {
     e.preventDefault();
     const { data } = await createJob({ jobData, token });
-    data?.success && nav("/manage-jobs");
+
+    // data?.success && nav("/manage-jobs");
   };
 
   return (

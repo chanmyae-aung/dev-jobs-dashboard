@@ -7,11 +7,11 @@ import { useCreateJobMutation, useUpdateJobMutation } from "../../api/jobApi";
 import { position } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { appId, appSecret } from "../../constants/authKey";
+import { appId, appSecret, baseUrl } from "../../constants/authKey";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditJob() {
-  const nav = useNavigate()
+  const nav = useNavigate();
   const { id } = useParams();
   const token = Cookies.get("token");
   const [select, setSelect] = useState(false);
@@ -21,7 +21,7 @@ export default function EditJob() {
   const [displayCompany, setDisplayCompany] = useState("");
   // to prevent undefined state use useEffect hook
   const fetchData = async () => {
-    const res = await fetch(`http://159.223.80.82/api/v1/admin/company/dropdown`, {
+    const res = await fetch(`${baseUrl}/admin/company/dropdown`, {
       headers: {
         "app-id": appId,
         "app-secret": appSecret,
@@ -32,7 +32,7 @@ export default function EditJob() {
     setCompany(data);
   };
   const fetchSingleJob = async () => {
-    const res = await fetch(`http://159.223.80.82/api/v1/admin/job/${id}`, {
+    const res = await fetch(`${baseUrl}/admin/job/${id}`, {
       headers: {
         "app-id": appId,
         "app-secret": appSecret,
@@ -40,7 +40,7 @@ export default function EditJob() {
       },
     });
     const { data } = await res.json();
-    setDisplayCompany(data?.company.name)
+    setDisplayCompany(data?.company.name);
     setState({
       position: data?.position,
       candidates: data?.candidates,
@@ -53,9 +53,9 @@ export default function EditJob() {
       requirements: data?.requirement,
       responsibilities: data?.responsibilities,
     });
-    setEditorHtml(data?.job_description)
-    setEditorReqHtml(data?.requirement)
-    setEditorResHtml(data?.responsibilities)
+    setEditorHtml(data?.job_description);
+    setEditorReqHtml(data?.requirement);
+    setEditorResHtml(data?.responsibilities);
   };
   console.log(company);
   useEffect(() => {
@@ -74,8 +74,8 @@ export default function EditJob() {
     requirement: "",
     responsibilities: "",
   });
-  
-  const [editJob, {isLoading}] = useUpdateJobMutation()
+
+  const [editJob, { isLoading }] = useUpdateJobMutation();
 
   const toggleSelect = () => {
     setSelect(!select);
@@ -100,9 +100,9 @@ export default function EditJob() {
   updateData.append("responsibilities", state.responsibilities);
 
   const handleEdit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const { data } = await editJob({ updateData, token, id });
-    data?.success && nav("/manage-jobs")
+    data?.success && nav("/manage-jobs");
   };
 
   return (
@@ -116,39 +116,39 @@ export default function EditJob() {
           <h4 className="p-5 border-b">Update Job</h4>
           <section className="flex items-center gap-5 px-5 py-2.5">
             <div className=" w-full">
-            <label className="block mb-2" htmlFor="">
-              Job Position
-            </label>
-            <input
-              onChange={(e) =>
-                setState((prevState) => ({
-                  ...prevState,
-                  position: e.target.value,
-                }))
-              }
-              value={state.position}
-              type="text"
-              className="w-full border outline-none py-3 px-5 rounded"
-              placeholder="e.g. Web Developer"
-            />
-          </div>
-          <div className="w-full">
-            <label className="block mb-2" htmlFor="">
-              Country
-            </label>
-            <input
-              onChange={(e) =>
-                setState((prevState) => ({
-                  ...prevState,
-                  country: e.target.value,
-                }))
-              }
-              value={state.country}
-              type="text"
-              className="w-full border outline-none py-3 px-5 rounded"
-              placeholder="e.g. United States"
-            />
-          </div>
+              <label className="block mb-2" htmlFor="">
+                Job Position
+              </label>
+              <input
+                onChange={(e) =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    position: e.target.value,
+                  }))
+                }
+                value={state.position}
+                type="text"
+                className="w-full border outline-none py-3 px-5 rounded"
+                placeholder="e.g. Web Developer"
+              />
+            </div>
+            <div className="w-full">
+              <label className="block mb-2" htmlFor="">
+                Country
+              </label>
+              <input
+                onChange={(e) =>
+                  setState((prevState) => ({
+                    ...prevState,
+                    country: e.target.value,
+                  }))
+                }
+                value={state.country}
+                type="text"
+                className="w-full border outline-none py-3 px-5 rounded"
+                placeholder="e.g. United States"
+              />
+            </div>
           </section>
           <section className="flex items-center gap-5 px-5 py-2.5">
             <div className=" w-full">
@@ -177,9 +177,7 @@ export default function EditJob() {
                 className="w-full border outline-none py-3 bg-white relative rounded cursor-pointer"
               >
                 <div className="px-5 flex items-center justify-between">
-                  <p className="">
-                    {displayCompany}
-                  </p>
+                  <p className="">{displayCompany}</p>
                   <BiChevronDown
                     className={`text-xl ${
                       selectCompany && "rotate-180"
@@ -222,7 +220,9 @@ export default function EditJob() {
                 className="w-full border outline-none py-3 bg-white relative rounded cursor-pointer"
               >
                 <div className="px-5 flex items-center justify-between">
-                  <p className="">{state.shift === 1 ? "Full Time": "Part Time"}</p>
+                  <p className="">
+                    {state.shift === 1 ? "Full Time" : "Part Time"}
+                  </p>
                   <BiChevronDown
                     className={`text-xl ${
                       select && "rotate-180"
