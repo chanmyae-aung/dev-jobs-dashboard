@@ -3,10 +3,8 @@ import { BiChevronDown } from "react-icons/bi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../components/Button";
-import { useCreateJobMutation, useUpdateJobMutation } from "../../api/jobApi";
-import { position } from "@chakra-ui/react";
+import { useUpdateJobMutation } from "../../api/jobApi";
 import Cookies from "js-cookie";
-import axios from "axios";
 import { appId, appSecret, baseUrl } from "../../constants/authKey";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -89,15 +87,15 @@ export default function EditJob() {
   const [editorResHtml, setEditorResHtml] = useState("");
 
   const updateData = new FormData();
-  updateData.append("position", state.position);
-  updateData.append("company_id", state.company_id);
-  updateData.append("candidates", state.candidates);
-  updateData.append("country", state.country);
-  updateData.append("shift", state.shift);
-  updateData.append("salary", state.salary);
-  updateData.append("job_description", state.job_description);
-  updateData.append("requirement", state.requirement);
-  updateData.append("responsibilities", state.responsibilities);
+  updateData.append("position", state?.position);
+  updateData.append("company_id", state?.company_id);
+  updateData.append("candidates", state?.candidates);
+  updateData.append("country", state?.country);
+  updateData.append("shift", state?.shift);
+  updateData.append("salary", state?.salary);
+  updateData.append("job_description", state?.job_description);
+  updateData.append("requirement", state?.requirement);
+  updateData.append("responsibilities", state?.responsibilities);
 
   const handleEdit = async (e) => {
     e.preventDefault();

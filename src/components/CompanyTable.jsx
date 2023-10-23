@@ -38,6 +38,8 @@ export default function CompanyTable() {
     const { data } = await deleteCompany({ token, id });
   };
 
+  data?.data?.map(el => console.log(el))
+
   const rows = data?.data.map((el, index) => (
     <tr className="cursor-pointer hover:bg-blue-50 text-slate-700" key={el.id}>
       <td>{index + 1}</td>

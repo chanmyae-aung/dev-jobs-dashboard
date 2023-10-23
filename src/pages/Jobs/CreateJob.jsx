@@ -46,6 +46,7 @@ export default function CreateJob() {
     requirement: "",
     responsibilities: "",
   });
+  
   const [createJob, { isLoading }] = useCreateJobMutation();
 
   const toggleSelect = () => {

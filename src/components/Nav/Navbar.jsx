@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { PiSunBold, PiBell } from "react-icons/pi";
 import Theme from "./Theme";
@@ -6,14 +6,16 @@ import NotiSidebar from "./NotiSidebar";
 import Profile from "./Profile";
 import Cookies from "js-cookie";
 import { useGetProfileQuery } from "../../api/authApi";
+import { socket } from "../../constants/authKey";
 
 const Navbar = () => {
-  const dark = Cookies.get("dark")
-  const token = Cookies.get("token")
+  const dark = Cookies.get("dark");
+  const token = Cookies.get("token");
   const [show, setShow] = useState(false);
   const [showNoti, setShowNoti] = useState();
   const [showProfile, setShowProfile] = useState(false);
-  const {data} = useGetProfileQuery(token)
+  const { data } = useGetProfileQuery(token);
+
   const toggleShow = () => {
     setShow(!show);
   };
@@ -28,9 +30,44 @@ const Navbar = () => {
     showProfile && toggleProfile();
   };
 
+
+  function subscribeToChannel(channelName) {
+    const subscriptionData = {
+      event: 'pusher:subscribe',
+      channel: channelName,
+      data: {
+        auth: '',
+        channel: 'noti',
+      },
+    };
+  
+    socket.send(JSON.stringify(subscriptionData));
+  }
+
+
+  useEffect(() => {
+    socket.onopen = () => {
+      console.log("WebSocket connection opened");
+      subscribeToChannel("noti");
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log("Received a WebSocket message:", data);
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+  }, []);
+
   return (
     <>
-      <main className={`${dark && "dark"} flex bg-white shadow relative w-full items-center justify-end md:px-5 p-3 bg-transparent`}>
+      <main
+        className={`${
+          dark && "dark"
+        } flex bg-white shadow relative w-full items-center justify-end md:px-5 p-3 bg-transparent`}
+      >
         {/* <div className=" flex">
           <input
             type="text"
@@ -44,7 +81,12 @@ const Navbar = () => {
         <div className="flex items-center">
           {/* Select Theme */}
           <div className="relative mx-5">
-            <button onClick={toggleShow} className={`${dark ? "bg-gray-500 text-slate-100" : "bg-white text-slate-600"} nav-btn `}>
+            <button
+              onClick={toggleShow}
+              className={`${
+                dark ? "bg-gray-500 text-slate-100" : "bg-white text-slate-600"
+              } nav-btn `}
+            >
               <PiSunBold className="" />
             </button>
             <div
@@ -68,7 +110,14 @@ const Navbar = () => {
           <div className="flex gap-5 border-x px-5">
             {/* Notification */}
             <div className="relative">
-              <button onClick={toggleNoti} className={`${dark ? "bg-gray-500 text-slate-100" : "bg-white text-slate-600"} nav-btn `}>
+              <button
+                onClick={toggleNoti}
+                className={`${
+                  dark
+                    ? "bg-gray-500 text-slate-100"
+                    : "bg-white text-slate-600"
+                } nav-btn `}
+              >
                 <PiBell />
                 <span className="text-xs bg-red-500 rounded-full text-white px-1.5 absolute -top-2 -right-3 z-10">
                   20+
@@ -89,11 +138,7 @@ const Navbar = () => {
               onClick={toggleProfile}
               className="w-[40px] h-[40px] p-1 nav-btn flex justify-center items-center  rounded-full overflow-hidden ml-5"
             >
-              <img
-                className=""
-                src={data?.data.image}
-                alt=""
-              />
+              <img className="" src={data?.data.image} alt="" />
             </div>
             <div
               className={`${
