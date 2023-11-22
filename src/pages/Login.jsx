@@ -23,7 +23,6 @@ export default function Login() {
     const {data} = await login({email, password})
     dispatch(loginAdmin({token: data?.data.token}))
     data?.data.token && nav("/")
-    
   }
 
   return (

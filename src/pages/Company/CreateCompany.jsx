@@ -27,6 +27,8 @@ export default function CreateCompany() {
     description: "",
   });
 
+  // console.log(state)
+
   const formData = new FormData();
   formData.append("name", state.name);
   formData.append("email", state.email);
@@ -39,6 +41,7 @@ export default function CreateCompany() {
   const handleCreate = async (e) => {
     e.preventDefault();
     const { data } = await createCompany({ formData, token });
+    console.log(data)
     data?.success && nav("/manage-companies");
     setState(state);
   };
@@ -167,7 +170,7 @@ export default function CreateCompany() {
                 }
                 type="text"
                 className="w-full border outline-none py-3 px-5 rounded"
-                placeholder="e.g. 5 - 8 lakhs"
+                placeholder="www.example.com"
               />
             </div>
           </section>

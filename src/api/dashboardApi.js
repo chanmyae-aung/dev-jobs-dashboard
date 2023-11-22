@@ -28,7 +28,29 @@ export const dashboardApi = createApi({
       }),
       providesTags: ["dashboard"],
     }),
+    getNotiCount: builder.query({
+      query: (token) => ({
+        url: `/noti-count`,
+        headers: {
+          "app-id": appId,
+          "app-secret": appSecret,
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ["dashboard"],
+    }),
+    getNotiList: builder.query({
+      query: (token) => ({
+        url: `/all-notification`,
+        headers: {
+          "app-id": appId,
+          "app-secret": appSecret,
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ["dashboard"],
+    })
   }),
 });
 
-export const { useGetTotalQuery, useGetPopularJobsQuery } = dashboardApi;
+export const { useGetTotalQuery, useGetPopularJobsQuery, useGetNotiCountQuery, useGetNotiListQuery } = dashboardApi;

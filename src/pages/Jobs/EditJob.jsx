@@ -55,7 +55,7 @@ export default function EditJob() {
     setEditorReqHtml(data?.requirement);
     setEditorResHtml(data?.responsibilities);
   };
-  console.log(company);
+  // console.log(company);
   useEffect(() => {
     fetchData();
     fetchSingleJob();
@@ -234,7 +234,10 @@ export default function EditJob() {
                 >
                   <div
                     onClick={(e) => {
-                      setState({ shift: 1 });
+                      setState((prevState) => ({
+                        ...prevState,
+                        shift: 1,
+                      }));
                       setDisplay(e.target.textContent);
                     }}
                     className="w-full outline-none py-3 bg-white px-5 rounded-t border-b cursor-pointer"
@@ -243,7 +246,10 @@ export default function EditJob() {
                   </div>
                   <div
                     onClick={(e) => {
-                      setState({ shift: 0 });
+                      setState((prevState) => ({
+                        ...prevState,
+                        shift: 0,
+                      }));
                       setDisplay(e.target.textContent);
                     }}
                     className="w-full outline-none py-3 bg-white px-5 rounded-b cursor-pointer"

@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Cookies from "js-cookie";
 import { useGetProfileQuery } from "../../api/authApi";
 import { socket } from "../../constants/authKey";
+import { useGetNotiCountQuery } from "../../api/dashboardApi";
 
 const Navbar = () => {
   const dark = Cookies.get("dark");
@@ -29,6 +30,9 @@ const Navbar = () => {
     showNoti && toggleNoti();
     showProfile && toggleProfile();
   };
+
+  const {data: notiCount} = useGetNotiCountQuery(token)
+  console.log(notiCount)
 
 
   function subscribeToChannel(channelName) {
@@ -119,9 +123,9 @@ const Navbar = () => {
                 } nav-btn `}
               >
                 <PiBell />
-                <span className="text-xs bg-red-500 rounded-full text-white px-1.5 absolute -top-2 -right-3 z-10">
-                  20+
-                </span>
+                {notiCount?.data?.length > 0 && <span className="text-xs bg-red-500 rounded-full text-white px-1.5 absolute -top-2 -right-3 z-10">
+                  {notiCount?.data.length}
+                </span>}
               </button>
             </div>
             <div

@@ -207,7 +207,7 @@ export default function EditCompany() {
                 value={state.website}
                 type="text"
                 className="w-full border outline-none py-3 px-5 rounded"
-                placeholder="e.g. 5 - 8 lakhs"
+                placeholder="www.example.com"
               />
             </div>
           </section>

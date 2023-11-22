@@ -71,13 +71,12 @@ export default function CreateJob() {
   jobData.append("requirement", state.requirement);
   jobData.append("responsibilities", state.responsibilities);
 
-  console.log("formdata",state)
+  // console.log("formdata",state)
   
   const handleCreate = async (e) => {
     e.preventDefault();
     const { data } = await createJob({ jobData, token });
-
-    // data?.success && nav("/manage-jobs");
+    data?.success && nav("/manage-jobs");
   };
 
   return (
@@ -210,7 +209,10 @@ export default function CreateJob() {
                 >
                   <div
                     onClick={(e) => {
-                      setState({ shift: 1 });
+                      setState((prevState) => ({
+                        ...prevState,
+                        shift: 1,
+                      }));
                       setDisplay(e.target.textContent);
                     }}
                     className="w-full outline-none py-3 bg-white px-5 rounded-t border-b cursor-pointer"
@@ -219,7 +221,10 @@ export default function CreateJob() {
                   </div>
                   <div
                     onClick={(e) => {
-                      setState({ shift: 0 });
+                      setState((prevState) => ({
+                        ...prevState,
+                        shift: 0,
+                      }));
                       setDisplay(e.target.textContent);
                     }}
                     className="w-full outline-none py-3 bg-white px-5 rounded-b cursor-pointer"

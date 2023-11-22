@@ -7,7 +7,7 @@ import { Table } from "@mantine/core";
 export default function PopularJobs() {
     const token = Cookies.get("token")
     const {data} = useGetPopularJobsQuery(token)
-    console.log(data)
+    // console.log(data)
   const elements = data?.data;
   const rows = elements?.map((element, index) => (
     <tr key={element.id} className="text-sm ">
@@ -18,7 +18,7 @@ export default function PopularJobs() {
   ));
 
   return (
-    <section className="bg-white rounded border">
+    <section className="bg-white rounded border h-full">
       <h4 className="p-4 text-sm border-b">Popular Jobs</h4>
       <Table verticalSpacing={"md"}>
         <thead>
